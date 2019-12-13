@@ -11,6 +11,6 @@ public class MainPage extends Form {
     }
 
     public MainPage() {
-        super(By.xpath("//div[@class='example']"), "exampleForm");
+        super(By.xpath("//div[@class='example']"), "example");
     }
 }
