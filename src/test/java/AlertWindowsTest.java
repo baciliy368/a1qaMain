@@ -14,9 +14,8 @@ public class AlertWindowsTest {
 
     @Test
     public void jsAlertTest() {
-        logger.info("Step 1:");
+        logger.info("Step 1: Open Main page");
         BrowserManager.getBrowser().goTo(PropertiesReader.getValue("START_PAGE_FRAME_TEST"));
-        logger.info("Create mainPage");
         MainPage mainPage = new MainPage();
         logger.info("Check mainPage isOpened");
         Assert.assertTrue(mainPage.isFormDisplayed(), "Form mainPage is not displayed");
@@ -24,7 +23,7 @@ public class AlertWindowsTest {
         logger.info("Step 2:");
         BrowserFramesManager.switchDriverOnFrameByIndex(0);
         mainPage.getExampleForm().getFrameForm().clearAndType(randomString);
-        logger.info("Check text");
+        logger.info("Check default text");
         Assert.assertEquals(mainPage.getExampleForm().getFrameForm().getTextDefault(),
                 randomString, "texts are not match");
 
@@ -33,7 +32,7 @@ public class AlertWindowsTest {
         BrowserFramesManager.switchDriverOnDefaultContent();
         mainPage.getExampleForm().clickBtnBold();
         BrowserFramesManager.switchDriverOnFrameByIndex(0);
-        logger.info("Check text");
+        logger.info("Check strong text");
         Assert.assertEquals(mainPage.getExampleForm().getFrameForm().getTextStrong(),
                 randomString, "texts are not match");
     }

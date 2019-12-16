@@ -13,7 +13,7 @@ public class FrameForm extends Form {
     private Logger logger = Logger.getInstance();
     private ITextBox txbInputField = new ElementFactory().getTextBox(By.xpath("//body[@id='tinymce']/p"), "123");
 
-    protected FrameForm() {
+    public FrameForm() {
         super(By.id("tinymce"), "bodyOfFrame");
     }
 
