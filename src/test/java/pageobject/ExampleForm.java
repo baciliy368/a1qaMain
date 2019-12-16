@@ -9,7 +9,7 @@ public class ExampleForm extends Form {
     private FrameForm frameForm = new FrameForm();
     private IButton btnMakeTextBold = new ElementFactory().getButton(By.xpath("//div[@aria-label='Bold']"), "bold");
 
-    protected ExampleForm() {
+    public ExampleForm() {
         super(By.xpath("//div[@role='menubar']"), "menuBar");
     }
 
