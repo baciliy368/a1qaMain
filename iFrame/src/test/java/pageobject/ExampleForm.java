@@ -6,14 +6,14 @@ import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
 
 public class ExampleForm extends Form {
-    private FrameForm frameForm = new FrameForm();
+    private InputTextFieldFrame frameForm = new InputTextFieldFrame();
     private IButton btnMakeTextBold = new ElementFactory().getButton(By.xpath("//div[@aria-label='Bold']"), "bold");
 
     public ExampleForm() {
         super(By.xpath("//div[@role='menubar']"), "menuBar");
     }
 
-    public FrameForm getFrameForm() {
+    public InputTextFieldFrame getFrameForm() {
         return frameForm;
     }
 
