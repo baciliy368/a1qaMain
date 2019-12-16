@@ -11,7 +11,7 @@ import java.io.File;
 public class XmlReader {
     public static User[] getUsersData() {
         User[] arrUsers = {};
-        try{
+        try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(new File(PropertiesReader.getValue("PATH_TO_FILE_WITH_USER_DATA")));
             NodeList users = doc.getDocumentElement().getElementsByTagName("user");
@@ -21,8 +21,7 @@ public class XmlReader {
                 arrUsers[item] = new User(el.getElementsByTagName("login").item(0).getTextContent(),
                         el.getElementsByTagName("password").item(0).getTextContent());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return arrUsers;
