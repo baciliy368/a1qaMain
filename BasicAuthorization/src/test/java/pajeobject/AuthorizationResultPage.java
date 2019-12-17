@@ -12,7 +12,7 @@ public class AuthorizationResultPage extends Form {
     private JSONObject jsonResultOfAuthentication = new JSONObject(resultBody.getText());
 
     public AuthorizationResultPage() {
-        super(By.tagName("body"), "jsonResult");
+        super(By.tagName("body"), "json Result of Authentication");
     }
 
     public Object getValueOfAuthorization(String key) {

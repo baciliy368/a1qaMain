@@ -1,9 +1,10 @@
 package framework.utils;
 
 import aquality.selenium.logger.Logger;
+import exceptions.NoPropertiesFileException;
+
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -11,18 +12,16 @@ public class PropertiesReader {
     private static Logger logger = Logger.getInstance();
 
     public static String getValue(String key) {
-        InputStream input = null;
-        try {
-            input = new FileInputStream("src/test/resources/testData.properties");
-        } catch (FileNotFoundException e) {
-            logger.error(e.getMessage());
-        }
+        InputStream input;
         Properties prop = new Properties();
         try {
+            input = new FileInputStream("src/test/resources/testData.properties");
             prop.load(input);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
+            throw new NoPropertiesFileException();
         }
         return prop.getProperty(key);
     }
 }
+
