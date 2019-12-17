@@ -1,36 +1,37 @@
+package testpackage;
+
 import aquality.selenium.browser.BrowserManager;
-import aquality.selenium.logger.Logger;
 import framework.BrowserFramesManager;
 import framework.utils.PropertiesReader;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pageobject.FramesOnMainExamplePage;
 import pageobject.MainPage;
 
-public class AlertWindowsTest {
-    private Logger logger = Logger.getInstance();
+public class TestInputFrameArea extends BaseTest {
     private int numberOfRandomSymbolsInString = 10;
     private String randomString = RandomStringUtils.randomAlphabetic(numberOfRandomSymbolsInString);
 
     @Test
-    public void jsAlertTest() {
+    public void testInputTextInFrame() {
         logger.info("Step 1: Open Main page");
         BrowserManager.getBrowser().goTo(PropertiesReader.getValue("START_PAGE_FRAME_TEST"));
         MainPage mainPage = new MainPage();
         Assert.assertTrue(mainPage.isFormDisplayed(), "Form mainPage is not displayed");
 
         logger.info("Step 2: clear and type in input field");
-        BrowserFramesManager.switchDriverOnFrameByIndex("mce_0_ifr");
+        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea);
         mainPage.getExampleForm().getFrameForm().clearAndType(randomString);
-        Assert.assertEquals(mainPage.getExampleForm().getFrameForm().getTextDefault(),
-                randomString, "texts are not match");
+        Assert.assertEquals(randomString, mainPage.getExampleForm().getFrameForm().getTextDefault(),
+                "texts are not match");
 
         logger.info("Step 3: make text strong");
         mainPage.getExampleForm().getFrameForm().selectAllText();
         BrowserFramesManager.switchDriverOnDefaultContent();
         mainPage.getExampleForm().clickBtnBold();
-        BrowserFramesManager.switchDriverOnFrameByIndex("mce_0_ifr");
-        Assert.assertEquals(mainPage.getExampleForm().getFrameForm().getTextStrong(),
-                randomString, "texts are not match");
+        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea);
+        Assert.assertEquals(randomString, mainPage.getExampleForm().getFrameForm().getTextStrong(),
+                "texts are not match");
     }
 }

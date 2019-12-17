@@ -10,7 +10,7 @@ public class ExampleForm extends Form {
     private IButton btnMakeTextBold = new ElementFactory().getButton(By.xpath("//div[@aria-label='Bold']"), "bold");
 
     public ExampleForm() {
-        super(By.xpath("//div[@role='menubar']"), "menuBar");
+        super(By.xpath("//div[@role='menubar']"), "Example");
     }
 
     public InputTextFieldFrame getFrameForm() {
@@ -20,5 +20,4 @@ public class ExampleForm extends Form {
     public void clickBtnBold() {
         btnMakeTextBold.click();
     }
-
 }
