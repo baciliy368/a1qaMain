@@ -21,7 +21,7 @@ public class TestInputFrameArea extends BaseTest {
         Assert.assertTrue(mainPage.isFormDisplayed(), "Form mainPage is not displayed");
 
         logger.info("Step 2: clear and type in input field");
-        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea);
+        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea.getIdStream());
         mainPage.getExampleForm().getFrameForm().clearAndType(randomString);
         Assert.assertEquals(randomString, mainPage.getExampleForm().getFrameForm().getTextDefault(),
                 "texts are not match");
@@ -30,7 +30,7 @@ public class TestInputFrameArea extends BaseTest {
         mainPage.getExampleForm().getFrameForm().selectAllText();
         BrowserFramesManager.switchDriverOnDefaultContent();
         mainPage.getExampleForm().clickBtnBold();
-        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea);
+        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea.getIdStream());
         Assert.assertEquals(randomString, mainPage.getExampleForm().getFrameForm().getTextStrong(),
                 "texts are not match");
     }

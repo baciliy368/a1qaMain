@@ -1,6 +1,8 @@
 package pageobject;
 
-public enum FramesOnMainExamplePage {
+import framework.FrameManagerInterface;
+
+public enum FramesOnMainExamplePage implements FrameManagerInterface {
     textInputArea("mce_0_ifr");
     private String idStream;
 
@@ -8,6 +10,7 @@ public enum FramesOnMainExamplePage {
         this.idStream = idStream;
     }
 
+    @Override
     public String getIdStream() {
         return idStream;
     }
