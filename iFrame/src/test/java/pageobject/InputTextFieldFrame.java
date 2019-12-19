@@ -10,9 +10,13 @@ import org.openqa.selenium.Keys;
 
 public class InputTextFieldFrame extends Form {
     private ITextBox txbInputField = new ElementFactory().getTextBox(By.xpath("//body[@id='tinymce']/p"), "input field");
-
+    
     public InputTextFieldFrame() {
         super(By.id("tinymce"), "input Field Frame");
+    }
+
+    public FramesEnum getInputFrame() {
+        return FramesEnum.mce_0_ifr;
     }
 
     public void selectAllText() {

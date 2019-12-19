@@ -6,7 +6,6 @@ import framework.utils.PropertiesReader;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageobject.FramesOnMainExamplePage;
 import pageobject.MainPage;
 
 public class TestInputFrameArea extends BaseTest {
@@ -21,17 +20,17 @@ public class TestInputFrameArea extends BaseTest {
         Assert.assertTrue(mainPage.isFormDisplayed(), "Form mainPage is not displayed");
 
         logger.info("Step 2: clear and type in input field");
-        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea.getIdStream());
-        mainPage.getExampleForm().getFrameForm().clearAndType(randomString);
-        Assert.assertEquals(randomString, mainPage.getExampleForm().getFrameForm().getTextDefault(),
+        BrowserFramesManager.switchDriverOnFrameByIndex(mainPage.getExampleForm().getInputTextFieldFrame().getInputFrame());
+        mainPage.getExampleForm().getInputTextFieldFrame().clearAndType(randomString);
+        Assert.assertEquals(randomString, mainPage.getExampleForm().getInputTextFieldFrame().getTextDefault(),
                 "texts are not match");
 
         logger.info("Step 3: make text strong");
-        mainPage.getExampleForm().getFrameForm().selectAllText();
+        mainPage.getExampleForm().getInputTextFieldFrame().selectAllText();
         BrowserFramesManager.switchDriverOnDefaultContent();
         mainPage.getExampleForm().clickBtnBold();
-        BrowserFramesManager.switchDriverOnFrameByIndex(FramesOnMainExamplePage.textInputArea.getIdStream());
-        Assert.assertEquals(randomString, mainPage.getExampleForm().getFrameForm().getTextStrong(),
+        BrowserFramesManager.switchDriverOnFrameByIndex(mainPage.getExampleForm().getInputTextFieldFrame().getInputFrame());
+        Assert.assertEquals(randomString, mainPage.getExampleForm().getInputTextFieldFrame().getTextStrong(),
                 "texts are not match");
     }
 }
