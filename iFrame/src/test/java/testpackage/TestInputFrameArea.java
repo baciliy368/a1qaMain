@@ -7,6 +7,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobject.MainPage;
+import pageobject.TextInputFrame;
 
 public class TestInputFrameArea extends BaseTest {
     private int numberOfRandomSymbolsInString = 10;
@@ -20,17 +21,18 @@ public class TestInputFrameArea extends BaseTest {
         Assert.assertTrue(mainPage.isFormDisplayed(), "Form mainPage is not displayed");
 
         logger.info("Step 2: clear and type in input field");
-        BrowserFramesManager.switchDriverOnFrameByIndex(mainPage.getExampleForm().getInputTextFieldFrame().getInputFrame());
-        mainPage.getExampleForm().getInputTextFieldFrame().clearAndType(randomString);
-        Assert.assertEquals(randomString, mainPage.getExampleForm().getInputTextFieldFrame().getTextDefault(),
+        TextInputFrame textInputFrame = mainPage.getExampleForm().getTextInputFrame();
+        BrowserFramesManager.switchDriverOnFrameByIndex(textInputFrame);
+        mainPage.getExampleForm().getTextInputFrame().clearAndType(randomString);
+        Assert.assertEquals(randomString, textInputFrame.getTextDefault(),
                 "texts are not match");
 
         logger.info("Step 3: make text strong");
-        mainPage.getExampleForm().getInputTextFieldFrame().selectAllText();
+        mainPage.getExampleForm().getTextInputFrame().selectAllText();
         BrowserFramesManager.switchDriverOnDefaultContent();
         mainPage.getExampleForm().clickBtnBold();
-        BrowserFramesManager.switchDriverOnFrameByIndex(mainPage.getExampleForm().getInputTextFieldFrame().getInputFrame());
-        Assert.assertEquals(randomString, mainPage.getExampleForm().getInputTextFieldFrame().getTextStrong(),
+        BrowserFramesManager.switchDriverOnFrameByIndex(textInputFrame);
+        Assert.assertEquals(randomString, textInputFrame.getTextStrong(),
                 "texts are not match");
     }
 }

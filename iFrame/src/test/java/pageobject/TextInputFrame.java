@@ -8,15 +8,11 @@ import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
-public class InputTextFieldFrame extends Form {
+public class TextInputFrame extends Form implements IFrame {
     private ITextBox txbInputField = new ElementFactory().getTextBox(By.xpath("//body[@id='tinymce']/p"), "input field");
-    
-    public InputTextFieldFrame() {
-        super(By.id("tinymce"), "input Field Frame");
-    }
 
-    public FramesEnum getInputFrame() {
-        return FramesEnum.mce_0_ifr;
+    public TextInputFrame() {
+        super(By.id("tinymce"), "input Field Frame");
     }
 
     public void selectAllText() {
@@ -35,5 +31,10 @@ public class InputTextFieldFrame extends Form {
         return new ElementFactory()
                 .findChildElement(txbInputField, By.xpath("/strong"), ElementType.LABEL, ElementState.EXISTS_IN_ANY_STATE)
                 .getText();
+    }
+
+    @Override
+    public String getId() {
+        return "mce_0_ifr";
     }
 }
