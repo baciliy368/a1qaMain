@@ -1,11 +1,8 @@
 package framework.sqlconnection;
 
-import exceptions.NoAnswerFromSqlServer;
 import framework.utiles.JsonConfigReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
 
 public class DataBaseConnection {
     private static DataBaseConnection instance;
@@ -14,29 +11,18 @@ public class DataBaseConnection {
     private static String username = JsonConfigReader.getJsonParameterValue("username");
     private static String password = JsonConfigReader.getJsonParameterValue("password");
 
-    private DataBaseConnection() throws SQLException {
-        connection = DriverManager.getConnection(url, username, password);
+    private DataBaseConnection() {
+        connection = new Sql2o(url, username, password).open();
     }
 
     public Connection getConnection() {
         return connection;
     }
 
-    public static DataBaseConnection getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new DataBaseConnection();
-        } else if (instance.getConnection().isClosed()) {
+    public static DataBaseConnection getInstance() {
+        if (connection == null) {
             instance = new DataBaseConnection();
         }
         return instance;
-    }
-
-    public static ResultSet getAnswer(String query) {
-        try {
-            return getInstance().getConnection().createStatement().executeQuery(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new NoAnswerFromSqlServer();
-        }
     }
 }

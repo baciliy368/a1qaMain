@@ -1,39 +1,56 @@
-import dnl.utils.text.table.TextTable;
+import framework.utiles.DbUtiles.DbOperations;
+import framework.utiles.DbUtiles.SqlFileReader;
 import framework.utiles.Printer;
-import mysqlquery.DateFromQuery;
-import mysqlquery.NumberTestsInBrowser;
-import mysqlquery.TimeSpendOnTest;
-import mysqlquery.UniqueTestOnProject;
+import models.mysqlquery.BrowsersNumber;
+import models.mysqlquery.DateFromQuery;
+import models.mysqlquery.TimeSpendOnTest;
+import models.mysqlquery.UniqueTestOnProject;
 
-import java.sql.SQLException;
+import java.util.List;
 
 public class SqlQuery {
 
-    public static void main(String[] args) throws SQLException {
-        TextTable timeSpendOnTestTable = sqlQueryTimeSpendOnTest();
-        TextTable numberOfUniqueTestOnProject = sqlQueryNumberOfUniqueTests();
-        TextTable allTestsAfterTheDate = sqlQueryAllTestAfterDate("2015-11-07");
-        TextTable numberOfBrowsersTable = sqlQueryNumberOfBrowsers(new String[]{"firefox", "chrome"});
-        Printer.printInFileTableWithName("Point 1: Minimal work time of tests", timeSpendOnTestTable);
-        Printer.printInFileTableWithName("Point 2: Number of unique test on the project", numberOfUniqueTestOnProject);
-        Printer.printInFileTableWithName("Point 3: All tests for every project after the date", allTestsAfterTheDate);
-        Printer.printInFileTableWithName("Point 4: number tests in browser", numberOfBrowsersTable);
+    public static void main(String[] args) {
+        Printer.print("Point 1: Minimal work time of tests");
+        List<TimeSpendOnTest> minimalWorkTimeOnBrowser = getTimeSpendOnTests();
+        Printer.print(minimalWorkTimeOnBrowser, new String[]{"project", "nameOfTest", "time"});
+
+        Printer.print("Point 2: Number of unique test on the project");
+        List<UniqueTestOnProject> UniqueTestsOnProject = getUniqueTestsFromQuery();
+        Printer.print(UniqueTestsOnProject, new String[]{"project", "number"} );
+
+        Printer.print("Point 3: All tests for every project after the date");
+        List<DateFromQuery> testDurationModelsDate = getListOfDateFromQuery("2015-11-07");
+        Printer.print(testDurationModelsDate,  new String[]{"project", "nameOfTest", "date"});
+
+        Printer.print("Point 4: Number of test in browser");
+        List<BrowsersNumber> numberTestsInBrowser = getNumberOfTestsInBrowsers(new String[]{"chrome", "firefox"});
+        Printer.print(numberTestsInBrowser, new String[]{"number"});
     }
 
-    private static TextTable sqlQueryTimeSpendOnTest() throws SQLException {
-        return new TimeSpendOnTest().getResultOfQuery().getTextTable();
+    private static List<UniqueTestOnProject> getUniqueTestsFromQuery() {
+        String query = new SqlFileReader("UNIQUE_TESTS_ON_PROJECT").toString();
+        return DbOperations.executeQuery(query, UniqueTestOnProject.class);
     }
 
-    private static TextTable sqlQueryNumberOfUniqueTests() throws SQLException {
-        return new UniqueTestOnProject().getResultOfQuery().getTextTable();
+    private static List<TimeSpendOnTest> getTimeSpendOnTests() {
+        String query = new SqlFileReader("TIME_SPEND_ON_TEST_SCRIPT").toString();
+        return DbOperations.executeQuery(query, TimeSpendOnTest.class);
     }
 
-    private static TextTable sqlQueryAllTestAfterDate(String date) throws SQLException {
-        return new DateFromQuery(date).getResultOfQuery().getTextTable();
-
+    private static List<BrowsersNumber> getNumberOfTestsInBrowsers(String[] browsers) {
+        String pattern = new SqlFileReader("BROWSER_SCRIPT").toString();
+        String query = String.format(pattern, browsers[0]);
+        if (browsers.length > 1) {
+            for (int browserIndex = 1; browserIndex < browsers.length; browserIndex++) {
+                query = String.format("%s UNION %s", query, String.format(pattern, browsers[browserIndex]));
+            }
+        }
+        return DbOperations.executeQuery(query, BrowsersNumber.class);
     }
 
-    private static TextTable sqlQueryNumberOfBrowsers(String[] browsers) throws SQLException {
-        return new NumberTestsInBrowser(browsers).getResultOfQuery().getTextTable();
+    private static List<DateFromQuery> getListOfDateFromQuery(String date) {
+        String query = new SqlFileReader("DATE_SCRIPT").toString();
+        return DbOperations.executeQuery(String.format(query, date), DateFromQuery.class);
     }
 }

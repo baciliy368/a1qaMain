@@ -1,1 +1,0 @@
-SELECT MIN(project.name) as fio, test.name, MIN((end_time)-(start_time)) as time_difference FROM test INNER JOIN project ON test.project_id = project.id GROUP BY test.name ORDER BY fio ASC, test.name ASC;

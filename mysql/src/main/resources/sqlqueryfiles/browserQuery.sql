@@ -1,0 +1,1 @@
+SELECT COUNT(browser) as numberOfBrowsers FROM test WHERE browser = '%s'

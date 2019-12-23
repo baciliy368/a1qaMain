@@ -1,31 +1,34 @@
 package framework.utiles;
 
 import dnl.utils.text.table.TextTable;
+import exceptions.NoResultFileException;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 public class Printer {
-    private static PrintStream printStream;
+    private static final String NAME_OUTPUT_FILE = "resultOfQuery.txt";
 
-    public static void printInFileTableWithName(String name, TextTable table) {
-        try {
-            printStream = new PrintStream(new FileOutputStream("resultOfQuery.txt", true));
+    public static <T> void print(List<T> modelsList, String[] header) {
+        try (PrintStream printStream =
+                     new PrintStream(new FileOutputStream(NAME_OUTPUT_FILE, true))) {
+            Object[][] modelsAsRow = new Object[modelsList.size()][];
+            for (int i = 0; i < modelsList.size(); i++) {
+                modelsAsRow[i] = modelsList.get(i).toString().split("\\|");
+            }
+            new TextTable(header, modelsAsRow).printTable(printStream, 0);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new NoResultFileException("StackTrace:" + e);
         }
-        printInFile(name);
-        printInFile(table);
     }
 
-    private static void printInFile(String text) {
-        printStream.println(text);
+    public static void print(String text) {
+        try (PrintStream printStream = new PrintStream(new FileOutputStream(NAME_OUTPUT_FILE, true))) {
+            printStream.println(text);
+        } catch (FileNotFoundException e) {
+            throw new NoResultFileException("StackTrace:" + e);
+        }
     }
-
-    private static void printInFile(TextTable table) {
-        table.printTable(printStream, 0);
-    }
-
-
-
 }

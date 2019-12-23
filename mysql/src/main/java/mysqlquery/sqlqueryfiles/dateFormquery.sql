@@ -1,1 +1,0 @@
-SELECT id.name, test.name, test.end_time FROM test INNER JOIN project AS id ON test.project_id = id.id WHERE end_time > %s ORDER BY id.name ASC, test.name ASC;
