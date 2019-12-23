@@ -4,7 +4,7 @@ import framework.baseelement.BasicApi;
 import models.Book;
 import org.jdom2.Element;
 import framework.utils.PropertiesReader;
-import framework.utils.XMLReader;
+import framework.utils.XmlReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class BooksApi extends BasicApi {
 
     public ArrayList<Book> getBooksList() {
         ArrayList<Book> bookArrayList = new ArrayList<>();
-        Element rootElement = XMLReader.getRootElement(getTextOfResponse());
+        Element rootElement = XmlReader.getRootElement(getTextOfResponse());
         List<Element> children = rootElement.getChildren();
         for (Element child : children) {
             bookArrayList.add(new Book(child));

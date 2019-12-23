@@ -6,7 +6,7 @@ import org.jdom2.input.SAXBuilder;
 
 import java.io.StringReader;
 
-public class XMLReader {
+public class XmlReader {
 
     public static Element getRootElement(String xml) {
         SAXBuilder saxBuilder = new SAXBuilder();
