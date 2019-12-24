@@ -1,6 +1,6 @@
 package models.mysqlquery;
 
-public class BrowsersNumber {
+public class BrowsersNumberModel {
     private String numberOfBrowsers;
 
     @Override

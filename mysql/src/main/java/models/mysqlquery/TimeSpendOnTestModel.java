@@ -1,6 +1,6 @@
 package models.mysqlquery;
 
-public class TimeSpendOnTest {
+public class TimeSpendOnTestModel {
     private String project;
     private String nameOfTest;
     private String timeDifference;

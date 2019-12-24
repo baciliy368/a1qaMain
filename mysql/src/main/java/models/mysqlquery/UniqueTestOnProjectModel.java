@@ -1,6 +1,6 @@
 package models.mysqlquery;
 
-public class UniqueTestOnProject {
+public class UniqueTestOnProjectModel {
     private String project;
     private String numberOfTests;
 

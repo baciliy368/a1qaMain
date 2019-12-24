@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import java.util.List;
 
 public class Printer {
-    private static final String NAME_OUTPUT_FILE = "resultOfQuery.txt";
+    private static final String NAME_OUTPUT_FILE = PropertiesReader.getValue("LOG_NAME_WITH_PATH");
 
     public static <T> void print(List<T> modelsList, String[] header) {
         try (PrintStream printStream =

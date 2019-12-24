@@ -3,6 +3,7 @@ package framework.utiles;
 import exceptions.NoConfigFileOrParameterException;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class PropertiesReader {
@@ -15,6 +16,7 @@ public class PropertiesReader {
             input = new FileInputStream(PATH_TO_PROPERTIES_FILE);
             prop.load(input);
         } catch (Exception e) {
+            Printer.print(Arrays.toString(e.getStackTrace()));
             throw new NoConfigFileOrParameterException(PATH_TO_PROPERTIES_FILE + e);
         }
         return prop.getProperty(key);

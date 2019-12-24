@@ -1,6 +1,6 @@
 package models.mysqlquery;
 
-public class DateFromQuery {
+public class DateFromModel {
     private String project;
     private String testName;
     private String endTime;

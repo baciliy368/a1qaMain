@@ -1,4 +1,4 @@
-package framework.utiles.DbUtiles;
+package framework.utiles.dbutiles;
 
 import framework.sqlconnection.DataBaseConnection;
 import java.util.List;
