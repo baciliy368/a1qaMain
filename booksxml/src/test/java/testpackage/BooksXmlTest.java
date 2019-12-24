@@ -18,7 +18,8 @@ public class BooksXmlTest extends BaseTest {
         softAssertStepOne.assertEquals(200, booksApi.getResponseCode(), "Code is not 200");
         softAssertStepOne.assertEquals("application/xml; charset=UTF-8",
                 booksApi.getConnection().getHeaderField("Content-Type"), "it is not .xml file");
-        softAssertStepOne.assertTrue(catalog.areBooksSorted(Catalog.OptionsOfCatalogOperations.MAX));
+        softAssertStepOne.assertTrue(catalog.areBooksSorted(Catalog.OptionsOfCatalogOperations.MAX),
+                "books are not sorted by id");
         softAssertStepOne.assertAll();
 
         Log.LOG.info("Step 2: Check name and description of books");
@@ -29,6 +30,6 @@ public class BooksXmlTest extends BaseTest {
                 "description of top price and minimal price book match");
         softAssertStepTwo.assertFalse(minimalPriceBook.getName().equals(topPriceBook.getName()),
                 "name of top price and minimal price book match");
-        softAssertStepTwo.assertAll("name or description of books with heist and lowest price is same");
+        softAssertStepTwo.assertAll();
     }
 }
