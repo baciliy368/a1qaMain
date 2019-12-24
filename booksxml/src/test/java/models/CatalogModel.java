@@ -12,10 +12,10 @@ import java.util.NoSuchElementException;
 
 @JacksonXmlRootElement(localName = "catalog")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Catalog {
+public class CatalogModel {
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "book")
-    private ArrayList<Book> books;
+    private ArrayList<BookModel> books;
 
     public enum OptionsOfCatalogOperations {
         MAX,
@@ -48,18 +48,18 @@ public class Catalog {
         return true;
     }
 
-    public Book getBookWithOptionalSearch(OptionsOfCatalogOperations option) {
+    public BookModel getBookWithOptionalSearch(OptionsOfCatalogOperations option) {
         Log.LOG.info("search BOOK with Top price");
         switch (option) {
             case MAX:
                 return books
                         .stream()
-                        .max(Comparator.comparing(Book::getPrice))
+                        .max(Comparator.comparing(BookModel::getPrice))
                         .orElseThrow(NoSuchElementException::new);
             case MIN:
                 return books
                         .stream()
-                        .min(Comparator.comparing(Book::getPrice))
+                        .min(Comparator.comparing(BookModel::getPrice))
                         .orElseThrow(NoSuchElementException::new);
             default:
                 final NoSuchElementException noSuchElementException = new NoSuchElementException();

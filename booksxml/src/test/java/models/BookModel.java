@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Book {
+public class BookModel {
     @JacksonXmlProperty(isAttribute = true)
     private String id;
     @JacksonXmlProperty(localName = "description")
