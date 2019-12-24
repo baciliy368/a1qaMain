@@ -1,30 +1,29 @@
 package models;
 
-import org.jdom2.Element;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Book {
+    @JacksonXmlProperty(isAttribute = true)
     private String id;
+    @JacksonXmlProperty(localName = "description")
     private String description;
+    @JacksonXmlProperty(localName = "price")
     private double price;
+    @JacksonXmlProperty(localName = "title")
     private String name;
 
-    public Book(Element element) {
-        id = element.getAttributeValue("id");
-        description = element.getChildText("description");
-        price = Double.parseDouble(element.getChildText("price"));
-        name = element.getChildText("title");
-    }
-
-    public int getIntOfId() {
-        return Integer.parseInt(id.replaceAll("[^\\d]", ""));
-    }
-
-    public double getPrice() {
-        return price;
+    public String getId() {
+        return id;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     public String getName() {

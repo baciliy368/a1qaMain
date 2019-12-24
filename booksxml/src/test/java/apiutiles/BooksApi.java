@@ -1,28 +1,28 @@
 package apiutiles;
 
+import exceptions.ErrorOfConnectionWithRestAli;
 import framework.baseelement.BasicApi;
-import models.Book;
-import org.jdom2.Element;
+import framework.utils.Log;
 import framework.utils.PropertiesReader;
-import framework.utils.XmlReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class BooksApi extends BasicApi {
-    private static final String url = PropertiesReader.getValue("URL_TO_GET_BOOKS");
+    private static final String URL_TO_GET_BOOKS = PropertiesReader.getValue("URL_TO_GET_BOOKS");
 
-    public BooksApi() {
-        super(url);
-    }
-
-    public ArrayList<Book> getBooksList() {
-        ArrayList<Book> bookArrayList = new ArrayList<>();
-        Element rootElement = XmlReader.getRootElement(getTextOfResponse());
-        List<Element> children = rootElement.getChildren();
-        for (Element child : children) {
-            bookArrayList.add(new Book(child));
+    @Override
+    public HttpURLConnection getConnection() {
+        try {
+            URL obj = new URL(URL_TO_GET_BOOKS);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/xml");
+            return connection;
+        } catch (IOException e) {
+            Log.LOG.error(e.getMessage());
+            throw new ErrorOfConnectionWithRestAli();
         }
-        return bookArrayList;
     }
 }
 

@@ -1,12 +1,12 @@
 package testpackage;
 
-import framework.utils.LoggerOfTests;
+import framework.utils.Log;
 import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
 
     @BeforeTest
     public void beforeTest() {
-        LoggerOfTests.setUpLogger();
+        Log.setUpLogger();
     }
 }
