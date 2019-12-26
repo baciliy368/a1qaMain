@@ -12,11 +12,11 @@ public abstract class BasicApi {
     public abstract HttpURLConnection getConnection();
 
     public int getResponseCode() {
-        Log.LOG.info("taking response code");
+        Log.info("taking response code");
         try {
             return getConnection().getResponseCode();
         } catch (IOException e) {
-            Log.LOG.error(e.getMessage());
+            Log.error(e.getMessage());
             throw new ErrorOfTakingResponseCode();
         }
     }
@@ -25,8 +25,7 @@ public abstract class BasicApi {
         try (final InputStream inputStream = getConnection().getInputStream()) {
             return new XmlMapper().readValue(inputStream, clazz);
         } catch (Exception e) {
-            e.printStackTrace();
-            Log.LOG.error(e.getMessage());
+            Log.error(e.getMessage());
             throw new ErrorOfTransformationResponseToText();
         }
     }

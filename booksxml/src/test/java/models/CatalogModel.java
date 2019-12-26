@@ -4,11 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import exceptions.NoCaseForThisEnumException;
+import framework.MinMaxValue;
 import framework.utils.Log;
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
+
+import static framework.MinMaxValue.MAX;
+import static framework.MinMaxValue.MIN;
 
 @JacksonXmlRootElement(localName = "catalog")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,13 +23,8 @@ public class CatalogModel {
     @JacksonXmlProperty(localName = "book")
     private ArrayList<BookModel> books;
 
-    public enum OptionsOfCatalogOperations {
-        MAX,
-        MIN
-    }
-
-    public boolean areBooksSorted(OptionsOfCatalogOperations sortedBy) {
-        Log.LOG.info("check are Books sorted By id");
+    public boolean areBooksSorted(MinMaxValue sortedBy) {
+        Log.info("check are Books sorted By id");
         ArrayList<String> realIdArray = new ArrayList<>();
         ArrayList<String> trueIdArray = new ArrayList<>();
         switch (sortedBy) {
@@ -36,34 +37,25 @@ public class CatalogModel {
                 realIdArray.stream().sorted().forEach(trueIdArray::add);
                 break;
             default:
-                final NoCaseForThisEnumException noCaseForThisEnumException = new NoCaseForThisEnumException();
-                Log.LOG.error(noCaseForThisEnumException);
-                throw noCaseForThisEnumException;
         }
-        for (int index = 0; index < realIdArray.size(); index++) {
-            if (!realIdArray.get(index).equals(trueIdArray.get(index))) {
-                return false;
-            }
-        }
-        return true;
+
+        return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
     }
 
-    public BookModel getBookWithOptionalSearch(OptionsOfCatalogOperations option) {
-        Log.LOG.info("search BOOK with Top price");
+    public BookModel getBookWithOptionalSearch(MinMaxValue option) {
+        Log.info("search BOOK with Top price");
         switch (option) {
             case MAX:
-                return books
-                        .stream()
+                return books.stream()
                         .max(Comparator.comparing(BookModel::getPrice))
-                        .orElseThrow(NoSuchElementException::new);
+                        .orElseThrow(() -> new NoSuchElementException("The are No Book model on request" + MAX));
             case MIN:
-                return books
-                        .stream()
+                return books.stream()
                         .min(Comparator.comparing(BookModel::getPrice))
-                        .orElseThrow(NoSuchElementException::new);
+                        .orElseThrow(() -> new NoSuchElementException("The are No Book model on request" + MIN));
             default:
-                final NoSuchElementException noSuchElementException = new NoSuchElementException();
-                Log.LOG.error(noSuchElementException.getStackTrace());
+                final NoSuchElementException noSuchElementException = new NoSuchElementException("Unknown selection condition");
+                Log.error(Arrays.toString(noSuchElementException.getStackTrace()));
                 throw noSuchElementException;
         }
     }

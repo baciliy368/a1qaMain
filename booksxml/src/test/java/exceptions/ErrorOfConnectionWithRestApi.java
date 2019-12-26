@@ -1,7 +1,7 @@
 package exceptions;
 
-public class ErrorOfConnectionWithRestAli extends Error {
-    public ErrorOfConnectionWithRestAli() {
+public class ErrorOfConnectionWithRestApi extends Error {
+    public ErrorOfConnectionWithRestApi() {
         super("Error with connection with RestApi");
     }
 

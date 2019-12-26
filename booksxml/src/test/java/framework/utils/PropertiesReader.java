@@ -1,6 +1,5 @@
 package framework.utils;
 
-import exceptions.NoPropertiesFileException;
 import java.io.FileInputStream;
 import java.util.Properties;
 
@@ -9,13 +8,12 @@ public class PropertiesReader {
 
     public static String getValue(String key) {
         Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream("src/test/resources/testData.properties"));
-            return prop.getProperty(key);
+        try (FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE_PATH)) {
+            prop.load(fileInputStream);
         } catch (Exception e) {
-            Log.LOG.error(e.getMessage());
-            throw new NoPropertiesFileException(PROPERTIES_FILE_PATH + e);
+            Log.error(e.getMessage());
         }
+        return prop.getProperty(key);
     }
 }
 

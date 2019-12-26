@@ -7,9 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class BookModel {
     @JacksonXmlProperty(isAttribute = true)
     private String id;
-    @JacksonXmlProperty(localName = "description")
     private String description;
-    @JacksonXmlProperty(localName = "price")
     private double price;
     @JacksonXmlProperty(localName = "title")
     private String name;
