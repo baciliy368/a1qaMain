@@ -15,11 +15,12 @@ public class PropertiesReader {
         try {
             input = new FileInputStream(PATH_TO_PROPERTIES_FILE);
             prop.load(input);
+            return prop.getProperty(key);
         } catch (Exception e) {
-            Printer.print(Arrays.toString(e.getStackTrace()));
-            throw new NoConfigFileOrParameterException(PATH_TO_PROPERTIES_FILE + e);
+            final NoConfigFileOrParameterException noConfigFileOrParameterException = new NoConfigFileOrParameterException(PATH_TO_PROPERTIES_FILE + e);
+            Printer.print(Arrays.toString(noConfigFileOrParameterException.getStackTrace()));
+            throw noConfigFileOrParameterException;
         }
-        return prop.getProperty(key);
     }
 }
 

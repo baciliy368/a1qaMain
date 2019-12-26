@@ -13,8 +13,9 @@ public class JsonConfigReader {
         try (FileReader fileReader = new FileReader(PATH_TO_JSON_CONFIG)) {
             return (String) ((JSONObject) new JSONParser().parse(fileReader)).get(parameter);
         } catch (Exception e) {
-            Printer.print(Arrays.toString(e.getStackTrace()));
-            throw new NoConfigFileOrParameterException(PATH_TO_JSON_CONFIG + e);
+            final NoConfigFileOrParameterException noConfigFileOrParameterException = new NoConfigFileOrParameterException(PATH_TO_JSON_CONFIG + e);
+            Printer.print(Arrays.toString(noConfigFileOrParameterException.getStackTrace()));
+            throw noConfigFileOrParameterException;
         }
     }
 }

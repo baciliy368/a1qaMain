@@ -22,8 +22,10 @@ public class SqlFileReader {
             return bufferedReader
                     .lines().collect(Collectors.joining());
         } catch (Exception e) {
-            Printer.print(Arrays.toString(e.getStackTrace()));
-            throw new NoSqlScriptFileException(PropertiesReader.getValue(name) + e);
+            final NoSqlScriptFileException noSqlScriptFileException = new NoSqlScriptFileException(PropertiesReader.getValue(name) + e);
+            Printer.print(Arrays.toString(noSqlScriptFileException.getStackTrace()));
+            throw noSqlScriptFileException;
+
         }
     }
 }
