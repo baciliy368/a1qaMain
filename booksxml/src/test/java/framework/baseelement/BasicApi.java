@@ -7,6 +7,7 @@ import framework.utils.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.Arrays;
 
 public abstract class BasicApi {
     public abstract HttpURLConnection getConnection();
@@ -16,7 +17,7 @@ public abstract class BasicApi {
         try {
             return getConnection().getResponseCode();
         } catch (IOException e) {
-            Log.error(e.getMessage());
+            Log.error(Arrays.toString(e.getStackTrace()));
             throw new ErrorOfTakingResponseCode();
         }
     }
@@ -25,7 +26,7 @@ public abstract class BasicApi {
         try (final InputStream inputStream = getConnection().getInputStream()) {
             return new XmlMapper().readValue(inputStream, clazz);
         } catch (Exception e) {
-            Log.error(e.getMessage());
+            Log.error(Arrays.toString(e.getStackTrace()));
             throw new ErrorOfTransformationResponseToText();
         }
     }

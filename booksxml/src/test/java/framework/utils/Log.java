@@ -14,7 +14,7 @@ public class Log {
         LOG.info(message);
     }
 
-    public static <T> void error(T message) {
+    public static void error(String message) {
         LOG.error(message);
     }
 }

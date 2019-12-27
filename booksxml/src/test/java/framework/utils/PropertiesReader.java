@@ -1,6 +1,7 @@
 package framework.utils;
 
 import java.io.FileInputStream;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class PropertiesReader {
@@ -11,7 +12,7 @@ public class PropertiesReader {
         try (FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE_PATH)) {
             prop.load(fileInputStream);
         } catch (Exception e) {
-            Log.error(e.getMessage());
+            Log.error(Arrays.toString(e.getStackTrace()));
         }
         return prop.getProperty(key);
     }

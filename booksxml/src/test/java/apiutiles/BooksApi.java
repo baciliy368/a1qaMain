@@ -21,7 +21,7 @@ public class BooksApi extends BasicApi {
             connection.setRequestProperty("Accept", "application/xml");
             return connection;
         } catch (IOException e) {
-            Log.error(e.getMessage() + Arrays.toString(e.getStackTrace()));
+            Log.error(Arrays.toString(e.getStackTrace()));
             throw new ErrorOfConnectionWithRestApi();
         }
     }

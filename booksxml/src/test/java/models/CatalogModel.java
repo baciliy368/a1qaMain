@@ -31,15 +31,17 @@ public class CatalogModel {
             case MIN:
                 books.forEach(book -> realIdArray.add(book.getId()));
                 realIdArray.stream().sorted(Comparator.reverseOrder()).forEach(trueIdArray::add);
-                break;
+                return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
             case MAX:
                 books.forEach(book -> realIdArray.add(book.getId()));
                 realIdArray.stream().sorted().forEach(trueIdArray::add);
-                break;
+                return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
             default:
+                EnumConstantNotPresentException enumConstantNotPresentException
+                        = new EnumConstantNotPresentException(MinMaxValue.class, sortedBy.toString());
+                Log.error(Arrays.toString(enumConstantNotPresentException.getStackTrace()));
+                throw enumConstantNotPresentException;
         }
-
-        return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
     }
 
     public BookModel getBookWithOptionalSearch(MinMaxValue option) {
@@ -54,9 +56,10 @@ public class CatalogModel {
                         .min(Comparator.comparing(BookModel::getPrice))
                         .orElseThrow(() -> new NoSuchElementException("The are No Book model on request" + MIN));
             default:
-                final NoSuchElementException noSuchElementException = new NoSuchElementException("Unknown selection condition");
-                Log.error(Arrays.toString(noSuchElementException.getStackTrace()));
-                throw noSuchElementException;
+                EnumConstantNotPresentException enumConstantNotPresentException
+                        = new EnumConstantNotPresentException(MinMaxValue.class, option.toString());
+                Log.error(Arrays.toString(enumConstantNotPresentException.getStackTrace()));
+                throw enumConstantNotPresentException;
         }
     }
 }
