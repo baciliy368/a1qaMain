@@ -28,11 +28,11 @@ public class CatalogModel {
         ArrayList<String> realIdArray = new ArrayList<>();
         ArrayList<String> trueIdArray = new ArrayList<>();
         switch (sortedBy) {
-            case ASCENDING:
+            case DESCENDING:
                 books.forEach(book -> realIdArray.add(book.getId()));
                 realIdArray.stream().sorted(Comparator.reverseOrder()).forEach(trueIdArray::add);
                 return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
-            case DESCENDING:
+            case ASCENDING:
                 books.forEach(book -> realIdArray.add(book.getId()));
                 realIdArray.stream().sorted().forEach(trueIdArray::add);
                 return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
