@@ -65,8 +65,8 @@ public class PostsStepsManager {
     }
 
     private boolean isArrayOfPostsSortedById(TypesOfSort sortType, PostModel[] posts) {
-        ArrayList<Integer> realIdArray = new ArrayList<>();
         ArrayList<Integer> trueIdArray = new ArrayList<>();
+        ArrayList<Integer> realIdArray = new ArrayList<>();
         final List<PostModel> postModels = Arrays.asList(posts);
         switch (sortType) {
             case ASCENDING:
