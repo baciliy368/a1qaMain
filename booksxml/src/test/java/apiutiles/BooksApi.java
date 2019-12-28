@@ -1,6 +1,5 @@
 package apiutiles;
 
-import exceptions.ErrorOfConnectionWithRestApi;
 import framework.baseelement.BasicApi;
 import framework.utils.Log;
 import framework.utils.PropertiesReader;
@@ -8,6 +7,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class BooksApi extends BasicApi {
     private static final String URL_TO_GET_BOOKS = PropertiesReader.getValue("URL_TO_GET_BOOKS");
@@ -22,7 +22,7 @@ public class BooksApi extends BasicApi {
             return connection;
         } catch (IOException e) {
             Log.error(Arrays.toString(e.getStackTrace()));
-            throw new ErrorOfConnectionWithRestApi();
+            throw new NoSuchElementException();
         }
     }
 }

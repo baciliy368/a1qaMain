@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import framework.MinMaxValue;
+import framework.enums.MinMaxValue;
+import framework.enums.TypeOfSort;
 import framework.utils.Log;
-import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
-import static framework.MinMaxValue.MAX;
-import static framework.MinMaxValue.MIN;
+import static framework.enums.MinMaxValue.MAX;
+import static framework.enums.MinMaxValue.MIN;
 
 @JacksonXmlRootElement(localName = "catalog")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -23,16 +23,16 @@ public class CatalogModel {
     @JacksonXmlProperty(localName = "book")
     private ArrayList<BookModel> books;
 
-    public boolean areBooksSorted(MinMaxValue sortedBy) {
+    public boolean areBooksSorted(TypeOfSort sortedBy) {
         Log.info("check are Books sorted By id");
         ArrayList<String> realIdArray = new ArrayList<>();
         ArrayList<String> trueIdArray = new ArrayList<>();
         switch (sortedBy) {
-            case MIN:
+            case ASCENDING:
                 books.forEach(book -> realIdArray.add(book.getId()));
                 realIdArray.stream().sorted(Comparator.reverseOrder()).forEach(trueIdArray::add);
                 return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
-            case MAX:
+            case DESCENDING:
                 books.forEach(book -> realIdArray.add(book.getId()));
                 realIdArray.stream().sorted().forEach(trueIdArray::add);
                 return Arrays.equals(trueIdArray.toArray(), realIdArray.toArray());
@@ -50,11 +50,11 @@ public class CatalogModel {
             case MAX:
                 return books.stream()
                         .max(Comparator.comparing(BookModel::getPrice))
-                        .orElseThrow(() -> new NoSuchElementException("The are No Book model on request" + MAX));
+                        .orElseThrow(() -> new NoSuchElementException("The are No Element model on request" + MAX));
             case MIN:
                 return books.stream()
                         .min(Comparator.comparing(BookModel::getPrice))
-                        .orElseThrow(() -> new NoSuchElementException("The are No Book model on request" + MIN));
+                        .orElseThrow(() -> new NoSuchElementException("The are No Element model on request" + MIN));
             default:
                 EnumConstantNotPresentException enumConstantNotPresentException
                         = new EnumConstantNotPresentException(MinMaxValue.class, option.toString());

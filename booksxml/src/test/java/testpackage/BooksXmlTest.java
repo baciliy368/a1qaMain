@@ -1,7 +1,8 @@
 package testpackage;
 
 import apiutiles.BooksApi;
-import framework.MinMaxValue;
+import framework.enums.MinMaxValue;
+import framework.enums.TypeOfSort;
 import framework.utils.Log;
 import models.BookModel;
 import models.CatalogModel;
@@ -21,7 +22,7 @@ public class BooksXmlTest extends BaseTest {
         softAssertStepOne.assertEquals(HttpURLConnection.HTTP_OK, booksApi.getResponseCode(), "Code is not 200");
         softAssertStepOne.assertEquals("application/xml; charset=UTF-8",
                 booksApi.getConnection().getHeaderField("Content-Type"), "it is not .xml file");
-        softAssertStepOne.assertTrue(catalog.areBooksSorted(MinMaxValue.MAX),
+        softAssertStepOne.assertTrue(catalog.areBooksSorted(TypeOfSort.ASCENDING),
                 "books are not sorted by id");
         softAssertStepOne.assertAll();
 
