@@ -1,0 +1,1 @@
+SELECT id.name as project, COUNT(DISTINCT test.name) as numberOfTests FROM test INNER JOIN project AS id ON test.project_id = id.id GROUP BY project;
