@@ -1,9 +1,6 @@
 package apiutiles;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.ErrorOfConnectionWithRestApi;
-import exceptions.ErrorOfTakingResponseCode;
-import exceptions.ErrorOfTransformationResponseToText;
 import framework.baseelement.BasicApi;
 import framework.enums.TypesOfConnection;
 import framework.utils.Log;
@@ -33,7 +30,7 @@ public class JsonApiPost extends BasicApi {
             return connection;
         } catch (IOException e) {
             Log.error(Arrays.toString(e.getStackTrace()));
-            throw new ErrorOfConnectionWithRestApi(e);
+            throw new NullPointerException();
         }
     }
 
@@ -54,7 +51,7 @@ public class JsonApiPost extends BasicApi {
             return connection;
         } catch (IOException e) {
             Log.error(Arrays.toString(e.getStackTrace()));
-            throw new ErrorOfTakingResponseCode(e);
+            throw new NullPointerException();
         }
     }
 
@@ -63,7 +60,7 @@ public class JsonApiPost extends BasicApi {
             return new ObjectMapper().readValue(sendPostRequestWithData(params).getInputStream(), clazz);
         } catch (Exception e) {
             Log.error(Arrays.toString(e.getStackTrace()));
-            throw new ErrorOfTransformationResponseToText(e);
+            throw new NullPointerException();
         }
     }
 }

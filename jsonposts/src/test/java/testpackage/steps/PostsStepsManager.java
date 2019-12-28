@@ -3,6 +3,7 @@ package testpackage.steps;
 import apiutiles.JsonApiGet;
 import apiutiles.JsonApiPost;
 import framework.enums.MinMaxEnum;
+import framework.enums.TypesOfSort;
 import framework.utils.Log;
 import framework.utils.PropertiesReader;
 import models.postsmodels.PostAnswerWithPostRequest;
@@ -56,23 +57,23 @@ public class PostsStepsManager {
         JsonApiGet getAllPosts = new JsonApiGet(BODY_URL_TO_GET_POSTS);
         PostModel[] modelByMapping = getAllPosts.getModelByMapping(PostModel[].class);
         SoftAssert softAssertStepOne = new SoftAssert();
-        softAssertStepOne.assertTrue(isArrayOfPostsSortedById(MinMaxEnum.MAX, modelByMapping),
+        softAssertStepOne.assertTrue(isArrayOfPostsSortedById(TypesOfSort.ASCENDING, modelByMapping),
                 "posts are not sorted by id");
         softAssertStepOne.assertEquals(HttpURLConnection.HTTP_OK, getAllPosts.getResponseCode(),
                 "response code is not 200");
         softAssertStepOne.assertAll();
     }
 
-    private boolean isArrayOfPostsSortedById(MinMaxEnum sortType, PostModel[] posts) {
+    private boolean isArrayOfPostsSortedById(TypesOfSort sortType, PostModel[] posts) {
         ArrayList<Integer> realIdArray = new ArrayList<>();
         ArrayList<Integer> trueIdArray = new ArrayList<>();
         final List<PostModel> postModels = Arrays.asList(posts);
         switch (sortType) {
-            case MIN:
+            case ASCENDING:
                 postModels.forEach(post -> realIdArray.add(post.getId()));
                 realIdArray.stream().sorted(Comparator.reverseOrder()).forEach(trueIdArray::add);
                 return Arrays.equals(realIdArray.toArray(), trueIdArray.toArray());
-            case MAX:
+            case DESCENDING:
                 postModels.forEach(post -> realIdArray.add(post.getId()));
                 realIdArray.stream().sorted().forEach(trueIdArray::add);
                 return Arrays.equals(realIdArray.toArray(), trueIdArray.toArray());

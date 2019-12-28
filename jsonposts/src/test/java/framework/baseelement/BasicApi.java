@@ -1,10 +1,7 @@
 package framework.baseelement;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.ErrorOfTakingResponseCode;
-import exceptions.ErrorOfTransformationResponseToText;
 import framework.utils.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -20,7 +17,7 @@ public abstract class BasicApi {
             return getConnection().getResponseCode();
         } catch (IOException e) {
             Log.error(Arrays.toString(e.getStackTrace()));
-            throw new ErrorOfTakingResponseCode(e);
+            throw new NullPointerException();
         }
     }
 
@@ -29,7 +26,7 @@ public abstract class BasicApi {
             return new ObjectMapper().readValue(inputStream, clazz);
         } catch (Exception e) {
             Log.error(Arrays.toString(e.getStackTrace()));
-            throw new ErrorOfTransformationResponseToText(e);
+            throw new NullPointerException();
         }
     }
 

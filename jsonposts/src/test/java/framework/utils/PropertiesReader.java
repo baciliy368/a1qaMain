@@ -1,8 +1,7 @@
 package framework.utils;
 
-import exceptions.NoPropertiesFileException;
-
 import java.io.FileInputStream;
+import java.nio.file.NoSuchFileException;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -16,7 +15,7 @@ public class PropertiesReader {
             return prop.getProperty(key);
         } catch (Exception e) {
             Log.error(Arrays.toString(e.getStackTrace()));
-            throw new NoPropertiesFileException(PROPERTIES_FILE_PATH + e);
+            throw new Error();
         }
     }
 }
