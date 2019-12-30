@@ -48,7 +48,7 @@ public class PostsStepsManager {
         JsonApiGet getPost150 = new JsonApiGet(BODY_URL_TO_GET_POST150);
         SoftAssert softAssertStepThree = new SoftAssert();
         softAssertStepThree.assertEquals(HttpURLConnection.HTTP_NOT_FOUND, getPost150.getResponseCode(),
-                "response code is not 200");
+                 "response code is not 200");
         softAssertStepThree.assertTrue(getPost150.isResponseEmpty(), "File is not empty");
         softAssertStepThree.assertAll();
     }
