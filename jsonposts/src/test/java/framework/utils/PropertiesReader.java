@@ -1,7 +1,6 @@
 package framework.utils;
 
 import java.io.FileInputStream;
-import java.nio.file.NoSuchFileException;
 import java.util.Arrays;
 import java.util.Properties;
 

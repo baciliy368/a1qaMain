@@ -17,4 +17,8 @@ public class Log {
     public static void error(String message) {
         LOG.error(message);
     }
+
+    public static void step(int numberOfStep, String message) {
+        LOG.info(String.format("STEP %d: %s", numberOfStep, message));
+    }
 }

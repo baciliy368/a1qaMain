@@ -1,8 +1,8 @@
-package models.usersmodels;
+package models.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Address {
+public class AddressModel {
     @JsonProperty("street")
     private String street;
     @JsonProperty("suite")
@@ -12,7 +12,7 @@ public class Address {
     @JsonProperty("zipcode")
     private String zipcode;
     @JsonProperty("geo")
-    private Geo geo;
+    private GeoModel geoModel;
 
     public String getStreet() {
         return street;
@@ -30,8 +30,8 @@ public class Address {
         return zipcode;
     }
 
-    public Geo getGeo() {
-        return geo;
+    public GeoModel getGeoModel() {
+        return geoModel;
     }
 
 

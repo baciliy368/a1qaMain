@@ -1,8 +1,8 @@
-package models.usersmodels;
+package models.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Company {
+public class CompanyModel {
     @JsonProperty("name")
     private String name;
     @JsonProperty("catchPhrase")

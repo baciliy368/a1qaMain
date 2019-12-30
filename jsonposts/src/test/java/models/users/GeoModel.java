@@ -1,8 +1,8 @@
-package models.usersmodels;
+package models.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Geo {
+public class GeoModel {
     @JsonProperty("lat")
     private String lat;
     @JsonProperty("lng")

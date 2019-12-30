@@ -1,7 +1,7 @@
-package models.postsmodels;
+package models.posts;
 
 public class PostModel {
-    private int id;
+    private String id;
     private int userId;
     private String title;
     private String body;
@@ -11,7 +11,7 @@ public class PostModel {
     }
 
     public int getId() {
-        return id;
+        return Integer.parseInt(id);
     }
 
     public String getTitle() {

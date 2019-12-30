@@ -1,6 +1,6 @@
 package framework.enums;
 
-public enum TypesOfConnection {
+public enum TypeOfConnection {
     GET,
     POST
 }

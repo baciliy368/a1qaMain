@@ -1,5 +1,6 @@
-package models.usersmodels;
+package models.users;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import framework.utils.Log;
@@ -10,10 +11,12 @@ public class UserModel {
     private String name;
     private String username;
     private String email;
-    private Address address;
+    @JsonProperty("address")
+    private AddressModel addressModel;
     private String phone;
     private String website;
-    private Company company;
+    @JsonProperty("company")
+    private CompanyModel companyModel;
 
     public int getId() {
         return id;
@@ -31,8 +34,8 @@ public class UserModel {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public AddressModel getAddressModel() {
+        return addressModel;
     }
 
     public String getPhone() {
@@ -43,8 +46,8 @@ public class UserModel {
         return website;
     }
 
-    public Company getCompany() {
-        return company;
+    public CompanyModel getCompanyModel() {
+        return companyModel;
     }
 
     public boolean equals(UserModel modelToCompare) {
