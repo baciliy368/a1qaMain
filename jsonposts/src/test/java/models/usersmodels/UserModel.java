@@ -2,7 +2,6 @@ package models.usersmodels;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import exceptions.ErrorOfTransformationResponseToText;
 import framework.utils.Log;
 import java.util.Arrays;
 
@@ -54,7 +53,7 @@ public class UserModel {
             return jsonMapper.writeValueAsString(this).equals(jsonMapper.writeValueAsString(modelToCompare));
         } catch (JsonProcessingException e) {
             Log.info(Arrays.toString(e.getStackTrace()));
-            throw new ErrorOfTransformationResponseToText(e);
+            throw new NullPointerException();
         }
     }
 }

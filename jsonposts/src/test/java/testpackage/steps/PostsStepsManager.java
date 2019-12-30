@@ -69,11 +69,11 @@ public class PostsStepsManager {
         ArrayList<Integer> realIdArray = new ArrayList<>();
         final List<PostModel> postModels = Arrays.asList(posts);
         switch (sortType) {
-            case ASCENDING:
+            case DESCENDING:
                 postModels.forEach(post -> realIdArray.add(post.getId()));
                 realIdArray.stream().sorted(Comparator.reverseOrder()).forEach(trueIdArray::add);
                 return Arrays.equals(realIdArray.toArray(), trueIdArray.toArray());
-            case DESCENDING:
+            case ASCENDING:
                 postModels.forEach(post -> realIdArray.add(post.getId()));
                 realIdArray.stream().sorted().forEach(trueIdArray::add);
                 return Arrays.equals(realIdArray.toArray(), trueIdArray.toArray());

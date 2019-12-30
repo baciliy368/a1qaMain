@@ -8,14 +8,14 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BooksXmlTest extends BaseTest {
+public class UserAndPostTest extends BaseTest {
     private static final int NUMBER_OF_RANDOM_SYMBOLS_IN_STRING = 10;
     private static final String TITLE = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
     private static final String BODY = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
     public static final String ID = "1";
 
     @Test
-    public void testXmlBooks() {
+    public void jsonPostAndUserTest() {
         Log.info("STEP 1: request for all posts");
         PostsStepsManager postsStepsManager = new PostsStepsManager();
         postsStepsManager.allPostsStep();
