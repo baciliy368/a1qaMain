@@ -33,8 +33,4 @@ public class UserPage extends Form {
     public QuickLoginForm getQuickLoginForm() {
         return quickLoginForm;
     }
-
-    public UserIconForm getUserIconForm() {
-        return userIconForm;
-    }
 }

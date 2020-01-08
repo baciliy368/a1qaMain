@@ -1,16 +1,20 @@
 package framework.utils;
 
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 
 public class ImageComparator {
 
     public static boolean compareFileByUrl(File file, String url) {
         long diff = 0;
-        long maxDiff = 0;
+        long maxDiff;
         try {
             BufferedImage img1 = ImageIO.read(file);
             BufferedImage img2 = ImageIO.read(new URL(url));
@@ -28,7 +32,8 @@ public class ImageComparator {
             }
             maxDiff = 3L * 255 * width * height;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(Arrays.toString(e.getStackTrace()));
+            throw new NoSuchElementException("no file on this address");
         }
         return Math.floorDiv(diff, maxDiff) == 0.0;
     }

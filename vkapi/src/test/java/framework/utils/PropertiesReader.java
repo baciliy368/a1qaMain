@@ -1,27 +1,24 @@
 package framework.utils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class PropertiesReader {
+    private static final String PATH_TO_PROPERTIES_FILE = "src/test/resources/testData.properties";
+
     public static String getValue(String key) {
-        InputStream input = null;
-        try {
-            input = new FileInputStream("src/test/resources/testData.properties");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        InputStream input;
         Properties prop = new Properties();
         try {
-            assert input != null;
+            input = new FileInputStream(PATH_TO_PROPERTIES_FILE);
             prop.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
+            return prop.getProperty(key);
+        } catch (Exception e) {
+            Log.error(Arrays.toString(e.getStackTrace()));
+            throw new NullPointerException();
         }
-        return prop.getProperty(key);
     }
 }
 
