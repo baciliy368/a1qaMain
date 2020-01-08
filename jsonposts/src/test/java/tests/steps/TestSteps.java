@@ -26,7 +26,6 @@ public class TestSteps {
 
     public static Response getResponse(String url, ParamRequestModel params) {
         JsonApi request = new JsonApi(url);
-        request.setBodyOfRequest(params);
-        return request.executePostRequest();
+        return request.executePostRequest(params);
     }
 }

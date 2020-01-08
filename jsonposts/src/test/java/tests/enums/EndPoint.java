@@ -6,6 +6,6 @@ public enum EndPoint {
 
     @Override
     public String toString() {
-        return String.format("%s/",super.toString().toLowerCase());
+        return String.format("%s",super.toString().toLowerCase());
     }
 }

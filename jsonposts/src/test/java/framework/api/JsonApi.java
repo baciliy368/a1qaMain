@@ -18,13 +18,10 @@ public class JsonApi {
         return request.get(url);
     }
 
-    public Response executePostRequest() {
+    public Response executePostRequest(ParamRequestModel paramRequestModel) {
         request.header("Content-Type", "application/json");
-        return request.post(url);
-    }
-
-    public void setBodyOfRequest(ParamRequestModel paramRequestModel) {
         request.body(paramRequestModel.toString());
+        return request.post(url);
     }
 }
 
