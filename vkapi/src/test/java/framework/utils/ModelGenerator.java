@@ -11,7 +11,6 @@ public class ModelGenerator {
         try {
             return new ObjectMapper().readValue(file, clazz);
         } catch (Exception e) {
-            e.printStackTrace();
             Log.error(Arrays.toString(e.getStackTrace()));
             throw new NullPointerException();
         }
@@ -21,7 +20,6 @@ public class ModelGenerator {
         try {
             return new ObjectMapper().readValue(response.asByteArray(), clazz);
         } catch (Exception e) {
-            e.printStackTrace();
             Log.error(Arrays.toString(e.getStackTrace()));
             throw new NullPointerException();
         }
@@ -31,7 +29,6 @@ public class ModelGenerator {
         try {
             return new ObjectMapper().readValue(json, clazz);
         } catch (Exception e) {
-            e.printStackTrace();
             Log.error(Arrays.toString(e.getStackTrace()));
             throw new NullPointerException();
         }

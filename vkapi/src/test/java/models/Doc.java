@@ -17,14 +17,6 @@ public class Doc {
         return id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
     @Override
     public String toString() {
         return String.format("doc%s_%s", ownerId, id);

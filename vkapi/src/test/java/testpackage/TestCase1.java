@@ -11,14 +11,12 @@ import models.api.ParamRequestModel;
 import models.test.UserModel;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobject.LoginPage;
 import pageobject.NewsPage;
 import pageobject.UserPage;
 import testpackage.steps.TestSteps;
 import vk.api.VkUserActions;
-
 import java.io.File;
 
 public class TestCase1 extends BaseTest {

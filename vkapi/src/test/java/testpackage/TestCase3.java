@@ -16,7 +16,6 @@ import pageobject.NewsPage;
 import pageobject.UserPage;
 import testpackage.steps.TestSteps;
 import vk.api.VkUserActions;
-
 import java.io.File;
 
 public class TestCase3 extends BaseTest {

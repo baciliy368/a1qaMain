@@ -10,12 +10,11 @@ public enum EndPoints {
     WALL_DELETE("wall.delete"),
     DOCS_WALL_UPLOAD_SERVER("docs.getWallUploadServer"),
     SAVE_DOCS("docs.save");
+    private String action;
 
     EndPoints(String action) {
         this.action = action;
     }
-
-    private String action;
 
     @Override
     public String toString() {

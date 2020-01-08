@@ -15,7 +15,6 @@ public class DocUploader {
 
     public DocUploader(JsonApi jsonApi) {
         this.jsonApi = jsonApi;
-
     }
 
     public Doc getDocOnServer(File doc, ParamRequestModel params) {
