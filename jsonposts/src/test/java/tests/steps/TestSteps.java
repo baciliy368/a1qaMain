@@ -1,7 +1,6 @@
 package tests.steps;
 
 import framework.api.JsonApi;
-import framework.enums.TypeOfConnection;
 import framework.utils.ModelGenerator;
 import io.restassured.response.Response;
 import models.ParamRequestModel;
@@ -21,13 +20,13 @@ public class TestSteps {
         Assert.assertEquals(actual, response.getStatusCode(), String.format("Status code is not %s", actual));
     }
 
-    public static Response getResponse(String url, TypeOfConnection type) {
-        return new JsonApi(url, type).executeRequest();
+    public static Response getResponse(String url) {
+        return new JsonApi(url).executeGetRequest();
     }
 
-    public static Response getResponse(String url, TypeOfConnection type, ParamRequestModel params) {
-        JsonApi request = new JsonApi(url, type);
+    public static Response getResponse(String url, ParamRequestModel params) {
+        JsonApi request = new JsonApi(url);
         request.setBodyOfRequest(params);
-        return request.executeRequest();
+        return request.executePostRequest();
     }
 }
