@@ -1,10 +1,10 @@
 <dataList>
     <data>
         <user>src/test/resources/data/tests/users/user2TestData.json</user>
-        <pic>src/test/resources/data/tests/pictures/1.jpg</pic>
+        <pic>src/test/resources/data/tests/pictures/test_picture.jpg</pic>
     </data>
     <data>
         <user>src/test/resources/data/tests/users/user2TestData.json</user>
-        <pic>src/test/resources/data/tests/pictures/2.png</pic>
+        <pic>src/test/resources/data/tests/pictures/test_picture.png</pic>
     </data>
 </dataList>

@@ -31,6 +31,7 @@ public class JsonApi {
     public <T> T executeGet(EndPoints endPoint, ParamRequestModel params, Class<T> clazz) {
         request.header("Content-Type", "application/json");
         try {
+            System.out.println(String.format(url, endPoint) + params.getAllParamAsString());
             HttpURLConnection conn = (HttpURLConnection)  new URL(String.format(url, endPoint) + params.getAllParamAsString()).openConnection();
             conn.setRequestMethod("GET");
             JSONObject jsonObject = new JSONObject(IOUtils.toString(conn.getInputStream(), StandardCharsets.UTF_8.name()));

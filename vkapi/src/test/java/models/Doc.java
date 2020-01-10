@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Doc {
-
-    @JsonProperty("type")
     private String type;
-    @JsonProperty("id")
     private Long id;
     @JsonProperty("owner_id")
     private Long ownerId;

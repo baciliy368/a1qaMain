@@ -1,4 +1,4 @@
-package testpackage;
+package test;
 
 import aquality.selenium.browser.BrowserManager;
 import framework.utils.Log;
@@ -14,11 +14,12 @@ import org.testng.annotations.Test;
 import pageobject.LoginPage;
 import pageobject.NewsPage;
 import pageobject.UserPage;
-import testpackage.steps.TestSteps;
+import test.steps.TestStepsVk;
 import vk.api.VkUserActions;
+import vk.enums.NamesOfApiParams;
 import java.io.File;
 
-public class TestCase4 extends BaseTest {
+public class TestEditPostWithDoc extends BaseTest {
 
     private static final int NUMBER_OF_RANDOM_SYMBOLS_IN_STRING = 10;
     private static final String RAND_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
@@ -43,34 +44,34 @@ public class TestCase4 extends BaseTest {
         Log.step(4, "Creating post using vkAPI");
         VkUserActions stepsUserB = new VkUserActions(userModel.getToken());
         ParamRequestModel paramToCreatePostWithText = new ParamRequestModel();
-        paramToCreatePostWithText.addParam("message", RAND_STRING);
+        paramToCreatePostWithText.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
         Post post = stepsUserB.createPost(paramToCreatePostWithText);
 
         Log.step(5, "Edit post, insert picture");
         Doc doc = stepsUserB.uploadDoc(userPage.getIdOfUser(), TEXT_FILE);
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam("post_id", post.getPostId());
-        paramRequestModel.addParam("message", RAND_STRING.toUpperCase());
+        paramRequestModel.addParam(NamesOfApiParams.POST_ID, post.getPostId());
+        paramRequestModel.addParam(NamesOfApiParams.MESSAGE, RAND_STRING.toUpperCase());
         paramRequestModel.addAttachments(doc.toString());
         post = stepsUserB.editWall(paramRequestModel);
 
         Log.step(6, "Check edit of post");
         Assert.assertEquals(TEXT_FILE.getName(), userPage.getPostsForm().getPost(post.getPostId()).getNameOfFileInPost(),
                 "names of file are not match");
-        TestSteps.checkTextOfPost(RAND_STRING.toUpperCase(), post);
+        TestStepsVk.checkTextOfPost(RAND_STRING.toUpperCase(), post);
 
         Log.step(7, "Add comment to post");
         ParamRequestModel paramOfComment = new ParamRequestModel();
-        paramOfComment.addParam("owner_id", userPage.getIdOfUser());
-        paramOfComment.addParam("post_id", post.getPostId());
-        paramOfComment.addParam("message", RAND_STRING);
+        paramOfComment.addParam(NamesOfApiParams.OWNER_ID, userPage.getIdOfUser());
+        paramOfComment.addParam(NamesOfApiParams.POST_ID, post.getPostId());
+        paramOfComment.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
         stepsUserB.addCommentToPost(paramOfComment);
 
         Log.step(8, "Check comment");
         Assert.assertTrue(userPage.getPostsForm().getPost(post.getPostId()).isCommentAdded(), "Comment is not added");
 
         Log.step(9, "Click like on post");
-        TestSteps.clickLikeOnPost(post);
+        TestStepsVk.clickLikeOnPost(post);
 
         Log.step(10, "Check like on post");
         stepsUserB.checkLikeOnPost(userPage.getIdOfUser(), post.getPostId());
@@ -79,6 +80,6 @@ public class TestCase4 extends BaseTest {
         stepsUserB.deletePost(userPage.getIdOfUser(), post.getPostId());
 
         Log.step(12, "Check delete post");
-        TestSteps.checkIsPostDeleted(post);
+        TestStepsVk.checkIsPostDeleted(post);
     }
 }

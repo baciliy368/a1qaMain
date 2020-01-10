@@ -1,6 +1,7 @@
-package testpackage;
+package test;
 
 import aquality.selenium.browser.BrowserManager;
+import framework.utils.Log;
 import framework.utils.PropertiesReader;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -10,6 +11,7 @@ public class BaseTest {
 
     @BeforeTest
     public void beforeTest() {
+        Log.test(this.getClass().getSimpleName());
         BrowserManager.getBrowser().maximize();
     }
 
@@ -17,4 +19,6 @@ public class BaseTest {
     public void afterTest() {
         BrowserManager.getBrowser().quit();
     }
+
+
 }

@@ -1,7 +1,6 @@
-package testpackage;
+package test;
 
 import aquality.selenium.browser.BrowserManager;
-import framework.browser.Driver;
 import framework.utils.Log;
 import framework.utils.ModelGenerator;
 import framework.utils.PropertiesReader;
@@ -13,11 +12,12 @@ import org.testng.annotations.Test;
 import pageobject.LoginPage;
 import pageobject.NewsPage;
 import pageobject.UserPage;
-import testpackage.steps.TestSteps;
+import test.steps.TestStepsVk;
 import vk.api.VkUserActions;
+import vk.enums.NamesOfApiParams;
 import java.io.File;
 
-public class TestCase2 extends BaseTest {
+public class TestLikesOnPostFromManyUsers extends BaseTest {
     private static final int NUMBER_OF_RANDOM_SYMBOLS_IN_STRING = 10;
     private static final String RAND_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
     private static final File CONFIG_USER_A = new File(PropertiesReader.getValue("USER_A"));
@@ -41,7 +41,7 @@ public class TestCase2 extends BaseTest {
 
         Log.step(4, "Get url of page");
         UserPage userPage = new UserPage();
-        String urlOfPageUserA = Driver.getUrlOfPage(userPage);
+        String urlOfPageUserA = TestStepsVk.getUrlOfPage(userPage);
 
         Log.step(5, "Get id of user");
         String idOfUserA = userPage.getIdOfUser();
@@ -49,11 +49,11 @@ public class TestCase2 extends BaseTest {
         Log.step(6, "Creating post using vkAPI");
         VkUserActions firstUserActions = new VkUserActions(userModelA.getToken());
         ParamRequestModel paramToCreatePostWithText = new ParamRequestModel();
-        paramToCreatePostWithText.addParam("message", RAND_STRING);
+        paramToCreatePostWithText.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
         Post post = firstUserActions.createPost(paramToCreatePostWithText);
 
         Log.step(7, "Click like on post");
-        TestSteps.clickLikeOnPost(post);
+        TestStepsVk.clickLikeOnPost(post);
 
         Log.step(8, "log out");
         userPage.logOut();
@@ -69,9 +69,9 @@ public class TestCase2 extends BaseTest {
         BrowserManager.getBrowser().goTo(urlOfPageUserA);
 
         Log.step(12, "check is post created");
-        TestSteps.checkOwnerOfPost(idOfUserA, post);
-        TestSteps.checkIdOfPost(post);
-        TestSteps.checkTextOfPost(RAND_STRING, post);
+        TestStepsVk.checkOwnerOfPost(idOfUserA, post);
+        TestStepsVk.checkIdOfPost(post);
+        TestStepsVk.checkTextOfPost(RAND_STRING, post);
 
         Log.step(14, "check likes on post");
         firstUserActions.checkLikeOnPost(idOfUserA, post.getPostId());

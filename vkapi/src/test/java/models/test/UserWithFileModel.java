@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import framework.utils.ModelGenerator;
 import java.io.File;
 
-public class DataModel {
+public class UserWithFileModel {
     @JacksonXmlProperty(localName = "user")
     String userPath;
     @JacksonXmlProperty(localName = "pic")

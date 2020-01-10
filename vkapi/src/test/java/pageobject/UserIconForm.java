@@ -6,7 +6,7 @@ import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
 
 public class UserIconForm extends Form {
-    private AccountControl accountControl = null;
+    private AccountControlForm accountControlForm = null;
     private IButton userLabel = new ElementFactory().getButton(By.id("top_profile_link"), "users Label");
     private IButton arrowMenu = new ElementFactory().getButton(By.xpath("//div[@class='top_profile_arrow']"), "arrow to open drop down menu");
 
@@ -16,7 +16,7 @@ public class UserIconForm extends Form {
 
     public void logout() {
         openDropDownMenu();
-        accountControl.clickLogOut();
+        accountControlForm.clickLogOut();
     }
 
     public String getIdOfUserNumbers() {
@@ -25,6 +25,6 @@ public class UserIconForm extends Form {
 
     private void openDropDownMenu() {
         arrowMenu.click();
-        accountControl = new AccountControl();
+        accountControlForm = new AccountControlForm();
     }
 }

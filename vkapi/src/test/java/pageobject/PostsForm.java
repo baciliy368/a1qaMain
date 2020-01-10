@@ -1,26 +1,18 @@
 package pageobject;
 
+import aquality.selenium.elements.ElementFactory;
+import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
-import framework.browser.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 public class PostsForm extends Form {
 
     PostsForm() {
-        super(By.id("profile_wall"), "postsHeader");
+        super(By.id("profile_wall"), "posts Header");
     }
 
-     public PostOnPage getPost(String id) {
-        WebElement postWebElement = getPostWebElement(id);
-        return new PostOnPage(postWebElement);
-    }
-
-    public boolean isPostDeleted(String id) {
-        return Driver.isElementDeleted(getPostWebElement(id));
-    }
-
-    private WebElement getPostWebElement(String id) {
-        return Driver.getElementAfterWaitOfVisible(By.xpath(String.format("//div[contains(@data-post-id,'%s')]", id)));
+    public PostForm getPost(String id) {
+        final ILabel post = new ElementFactory().getLabel(By.xpath(String.format("//div[contains(@data-post-id,'%s')]", id)), "post");
+        return new PostForm(post);
     }
 }

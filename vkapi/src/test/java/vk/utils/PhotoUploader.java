@@ -31,6 +31,7 @@ public class PhotoUploader {
     }
 
     private PhotoModel[] savePhoto(PhotoOnServerModel photo) {
+        System.out.println(photo.getHash());
         return jsonApi.executeGet(EndPoints.SAVE_PHOTO, photo.getParamsToSave(), PhotoModel[].class);
     }
 }

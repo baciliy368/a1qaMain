@@ -1,7 +1,7 @@
-package testpackage;
+package test;
 
 import aquality.selenium.browser.BrowserManager;
-import framework.utils.ImageComparator;
+import framework.utils.ImgManager;
 import framework.utils.Log;
 import framework.utils.ModelGenerator;
 import framework.utils.PropertiesReader;
@@ -15,11 +15,12 @@ import org.testng.annotations.Test;
 import pageobject.LoginPage;
 import pageobject.NewsPage;
 import pageobject.UserPage;
-import testpackage.steps.TestSteps;
+import test.steps.TestStepsVk;
 import vk.api.VkUserActions;
+import vk.enums.NamesOfApiParams;
 import java.io.File;
 
-public class TestCase1 extends BaseTest {
+public class TestUserCommentAndCorrectionOfThisComment extends BaseTest {
     private static final int NUMBER_OF_RANDOM_SYMBOLS_IN_STRING = 10;
     private static final String RAND_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
     private static final File CONFIG_USER = new File(PropertiesReader.getValue("USER_A"));
@@ -44,36 +45,37 @@ public class TestCase1 extends BaseTest {
         UserPage userPage = new UserPage();
         VkUserActions stepsUserA = new VkUserActions(userModel.getToken());
         ParamRequestModel paramToCreatePostWithText = new ParamRequestModel();
-        paramToCreatePostWithText.addParam("message", RAND_STRING);
+        paramToCreatePostWithText.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
         Post post = stepsUserA.createPost(paramToCreatePostWithText);
 
         Log.step(5,"Check is post created");
-        TestSteps.checkTextOfPost(RAND_STRING, post);
+        TestStepsVk.checkTextOfPost(RAND_STRING, post);
 
         Log.step(6, "Edit post, insert picture");
         PhotoModel photo = stepsUserA.uploadPhoto(userPage.getIdOfUser(), PHOTO);
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam("post_id", post.getPostId());
-        paramRequestModel.addParam("message", RAND_STRING.toUpperCase());
+        paramRequestModel.addParam(NamesOfApiParams.POST_ID, post.getPostId());
+        paramRequestModel.addParam(NamesOfApiParams.MESSAGE, RAND_STRING.toUpperCase());
         paramRequestModel.addAttachments(photo.toString());
         post = userApiActions.editWall(paramRequestModel);
 
         Log.step(7, "Check is post edit with image and text");
-        TestSteps.checkTextOfPost(RAND_STRING.toUpperCase(), post);
-        Assert.assertTrue(ImageComparator.compareFileByUrl(PHOTO, userPage.getLinkOnImg(photo.toString())));
+        TestStepsVk.checkTextOfPost(RAND_STRING.toUpperCase(), post);
+        Assert.assertTrue(ImgManager.compareImage(ImgManager.getBufferedImage(PHOTO),
+                ImgManager.getBufferedImage(userPage.getLinkOnImg(photo.toString()))), "post img is not match");
 
         Log.step(8, "Add comment to post");
         ParamRequestModel paramsToAddComment = new ParamRequestModel();
-        paramsToAddComment.addParam("owner_id", userPage.getIdOfUser());
-        paramsToAddComment.addParam("post_id", post.getPostId());
-        paramsToAddComment.addParam("message", RAND_STRING);
+        paramsToAddComment.addParam(NamesOfApiParams.OWNER_ID, userPage.getIdOfUser());
+        paramsToAddComment.addParam(NamesOfApiParams.POST_ID, post.getPostId());
+        paramsToAddComment.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
         stepsUserA.addCommentToPost(paramsToAddComment);
 
         Log.step(9, "Check comment");
-        TestSteps.checkCommentAdded(post);
+        TestStepsVk.checkCommentAdded(post);
 
         Log.step(10, "Click like on post");
-        TestSteps.clickLikeOnPost(post);
+        TestStepsVk.clickLikeOnPost(post);
 
         Log.step(11, "Check like on post");
         stepsUserA.checkLikeOnPost(userPage.getIdOfUser(), post.getPostId());
@@ -82,7 +84,7 @@ public class TestCase1 extends BaseTest {
         stepsUserA.deletePost(userPage.getIdOfUser(), post.getPostId());
 
         Log.step(13, "Check delete post");
-        TestSteps.checkIsPostDeleted(post);
+        TestStepsVk.checkIsPostDeleted(post);
     }
 }
 

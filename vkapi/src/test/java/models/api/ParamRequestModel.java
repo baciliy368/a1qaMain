@@ -1,6 +1,8 @@
 package models.api;
 
 import org.json.JSONObject;
+import vk.enums.NamesOfApiParams;
+
 import java.util.stream.Collectors;
 
 public class ParamRequestModel {
@@ -12,8 +14,8 @@ public class ParamRequestModel {
         return params.toString();
     }
 
-    public <T> void addParam(String name, String param) {
-        params.put(name, param);
+    public void addParam(NamesOfApiParams name, String param) {
+        params.put(name.toString(), param);
     }
 
     public <T> void addAttachments(String... attachments) {

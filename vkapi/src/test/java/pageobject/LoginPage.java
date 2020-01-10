@@ -7,7 +7,7 @@ public class LoginPage extends Form {
     private LoginForm loginForm = new LoginForm();
 
     public LoginPage() {
-        super(By.xpath("//a[@class='header-logo']"), "logoTutBy");
+        super(By.id("index_login_button"), "login button");
     }
 
     public LoginForm getLoginForm() {

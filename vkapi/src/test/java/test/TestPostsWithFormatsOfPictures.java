@@ -1,7 +1,7 @@
-package testpackage;
+package test;
 
 import aquality.selenium.browser.BrowserManager;
-import framework.utils.ImageComparator;
+import framework.utils.ImgManager;
 import framework.utils.Log;
 import framework.utils.PropertiesReader;
 import models.PhotoModel;
@@ -16,13 +16,14 @@ import org.testng.asserts.SoftAssert;
 import pageobject.LoginPage;
 import pageobject.NewsPage;
 import pageobject.UserPage;
-import testpackage.dataprovider.DataProviderForVkApiTest;
+import test.dataprovider.DataProviderForVkApiTest;
 import vk.api.JsonApi;
 import vk.api.VkUserActions;
 import vk.enums.EndPoints;
+import vk.enums.NamesOfApiParams;
 import java.io.File;
 
-public class TestCase5 {
+public class TestPostsWithFormatsOfPictures extends BaseTest {
     private static final int NUMBER_OF_RANDOM_SYMBOLS_IN_STRING = 10;
     private static final String RAND_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
     private static final String BODY_OF_API_URL = PropertiesReader.getValue("VK_PATTERN");
@@ -52,14 +53,16 @@ public class TestCase5 {
         VkUserActions secondUserActions = new VkUserActions(user.getToken());
         PhotoModel photo = secondUserActions.uploadPhoto(userPage.getIdOfUser(), picFile);
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam("message", RAND_STRING.toUpperCase());
+        paramRequestModel.addParam(NamesOfApiParams.MESSAGE, RAND_STRING.toUpperCase());
         paramRequestModel.addAttachments(photo.toString());
         Post post = userApiActions.executeGet(EndPoints.WALL_POST, paramRequestModel, Post.class);
 
         Log.step(5, "Check is post created");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(RAND_STRING.toUpperCase(), userPage.getPostsForm().getPost(post.getPostId()).getText(), "post not found");
-        softAssert.assertTrue(ImageComparator.compareFileByUrl(picFile, userPage.getLinkOnImg(photo.toString())));
+        softAssert.assertEquals(RAND_STRING.toUpperCase(), userPage.getPostsForm().getPost(post.getPostId()).getText(), "post text is not match");
+        softAssert.assertTrue(ImgManager.compareImage(ImgManager.getBufferedImage(picFile),
+                ImgManager.getBufferedImage(userPage.getLinkOnImg(photo.toString()))),
+                "pictures are not match");
         softAssert.assertAll();
     }
 

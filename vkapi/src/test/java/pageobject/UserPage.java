@@ -1,7 +1,7 @@
 package pageobject;
 
+import aquality.selenium.elements.ElementFactory;
 import aquality.selenium.forms.Form;
-import framework.browser.Driver;
 import org.openqa.selenium.By;
 
 public class UserPage extends Form {
@@ -9,11 +9,11 @@ public class UserPage extends Form {
     private QuickLoginForm quickLoginForm = new QuickLoginForm();
 
     public UserPage() {
-        super(By.id("profile_edit_act"), "edit profile btn");
+        super(By.id("profile_edit_act"), "edit user profile");
     }
 
     public String getLinkOnImg(String idOfAttachment) {
-        return Driver.getElement(By.xpath(String.format("//a[@href='/%s']", idOfAttachment))).getAttribute("style")
+        return new ElementFactory().getButton(By.xpath(String.format("//a[@href='/%s']", idOfAttachment)), "ing Button").getAttribute("style")
                 .replaceAll(".+url\\(\"", "")
                 .replaceAll("\".+", "");
     }

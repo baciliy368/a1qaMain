@@ -1,21 +1,21 @@
 package pageobject;
 
+import aquality.selenium.elements.ElementFactory;
+import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
-import framework.browser.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-public class PostOnPage extends Form {
+public class PostForm extends Form {
     private static final By LIKE_LOCATOR = By.xpath("//a[contains(@class, 'like')]");
-    private WebElement rootElement;
+    private ILabel rootElement;
 
-    PostOnPage(WebElement element) {
+    PostForm(ILabel element) {
         super(By.xpath("//a[contains(@class, 'share')]"), "share button");
         rootElement = element;
     }
 
     public void clickLike() {
-        rootElement.findElement(LIKE_LOCATOR).click();
+        rootElement.getElement().findElement(LIKE_LOCATOR).click();
     }
 
     public String getId() {
@@ -23,7 +23,7 @@ public class PostOnPage extends Form {
     }
 
     public String getText() {
-        return rootElement.findElement(By.xpath("//div[contains(@class,'post_text')]")).getText();
+        return rootElement.getElement().findElement(By.xpath("//div[contains(@class,'post_text')]")).getText();
     }
 
     public String getOwnerId() {
@@ -31,10 +31,11 @@ public class PostOnPage extends Form {
     }
 
     public boolean isCommentAdded() {
-        return Driver.getElementAfterWaitOfVisible(By.xpath("//a[contains(@class,'replies_next')]")).isDisplayed();
+        return new ElementFactory().getLabel(By.xpath("//a[contains(@class,'replies_next')]"), "Comment")
+                .state().waitForDisplayed();
     }
 
     public String getNameOfFileInPost() {
-        return rootElement.findElement(By.xpath("//a[@class='page_doc_title']")).getText();
+        return rootElement.getElement().findElement(By.xpath("//a[@class='page_doc_title']")).getText();
     }
 }

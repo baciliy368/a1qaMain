@@ -3,6 +3,7 @@ package framework.utils;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Properties;
 
 public class PropertiesReader {
@@ -16,8 +17,10 @@ public class PropertiesReader {
             prop.load(input);
             return prop.getProperty(key);
         } catch (Exception e) {
-            Log.error(Arrays.toString(e.getStackTrace()));
-            throw new NullPointerException();
+            final NoSuchElementException noSuchElementException
+                    = new NoSuchElementException(String.format("Problems with reading properties file %s", PATH_TO_PROPERTIES_FILE));
+            Log.error(String.format("%s\n%s", noSuchElementException.getMessage(), Arrays.toString(e.getStackTrace())));
+            throw noSuchElementException;
         }
     }
 }

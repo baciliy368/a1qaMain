@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Likes {
-    @JsonProperty("liked")
-    private int likes;
+    private int liked;
 
     public boolean isLiked() {
-        return likes == 1;
+        return liked == 1;
     }
 }
