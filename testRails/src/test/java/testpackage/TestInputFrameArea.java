@@ -3,7 +3,9 @@ package testpackage;
 import aquality.selenium.browser.BrowserManager;
 import framework.BrowserFramesManager;
 import framework.utils.Log;
+import framework.utils.ModelGenerator;
 import framework.utils.PropertiesReader;
+import models.TestModel;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -12,14 +14,16 @@ import org.testng.annotations.Test;
 import pageobject.MainPage;
 import pageobject.TextInputFrame;
 import testrail.enums.TestCondition;
+
+import java.io.File;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class TestInputFrameArea extends BaseTest {
     private static final int NUMBER_OF_RANDOM_SYMBOLS_IN_STRING = 10;
     private static final String RANDOM_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
-    private static String RUN_ID = PropertiesReader.getValue("RUN_ID");
-    private static String CASE_ID = PropertiesReader.getValue("CASE_ID");
+    private static final File testConfig = new File(PropertiesReader.getValue("TEST_IF_FRAME_MODEL"));
+    private static final TestModel test = ModelGenerator.getModelByMapping(testConfig, TestModel.class);
 
     @Test
     public void testInputTextInFrame() {
@@ -49,10 +53,10 @@ public class TestInputFrameArea extends BaseTest {
         final int status = result.getStatus();
         switch (status) {
             case ITestResult.SUCCESS:
-                registerOnTestRails(TestCondition.PASSED, RUN_ID, CASE_ID);
+                registerOnTestRails(TestCondition.PASSED, test.getRunId(), test.getCaseId());
                 break;
             case ITestResult.FAILURE:
-                registerOnTestRails(TestCondition.FAILED, RUN_ID, CASE_ID);
+                registerOnTestRails(TestCondition.FAILED, test.getRunId(), test.getCaseId());
                 break;
             default:
                 NoSuchElementException noSuchElementException =
