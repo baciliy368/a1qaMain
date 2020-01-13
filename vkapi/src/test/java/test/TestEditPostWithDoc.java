@@ -16,7 +16,7 @@ import pageobject.NewsPage;
 import pageobject.UserPage;
 import test.steps.TestStepsVk;
 import vk.api.VkUserActions;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 import java.io.File;
 
 public class TestEditPostWithDoc extends BaseTest {
@@ -44,14 +44,14 @@ public class TestEditPostWithDoc extends BaseTest {
         Log.step(4, "Creating post using vkAPI");
         VkUserActions stepsUserB = new VkUserActions(userModel.getToken());
         ParamRequestModel paramToCreatePostWithText = new ParamRequestModel();
-        paramToCreatePostWithText.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
+        paramToCreatePostWithText.addParam(QueryParams.MESSAGE, RAND_STRING);
         Post post = stepsUserB.createPost(paramToCreatePostWithText);
 
         Log.step(5, "Edit post, insert picture");
         Doc doc = stepsUserB.uploadDoc(userPage.getIdOfUser(), TEXT_FILE);
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam(NamesOfApiParams.POST_ID, post.getPostId());
-        paramRequestModel.addParam(NamesOfApiParams.MESSAGE, RAND_STRING.toUpperCase());
+        paramRequestModel.addParam(QueryParams.POST_ID, post.getPostId());
+        paramRequestModel.addParam(QueryParams.MESSAGE, RAND_STRING.toUpperCase());
         paramRequestModel.addAttachments(doc.toString());
         post = stepsUserB.editWall(paramRequestModel);
 
@@ -62,9 +62,9 @@ public class TestEditPostWithDoc extends BaseTest {
 
         Log.step(7, "Add comment to post");
         ParamRequestModel paramOfComment = new ParamRequestModel();
-        paramOfComment.addParam(NamesOfApiParams.OWNER_ID, userPage.getIdOfUser());
-        paramOfComment.addParam(NamesOfApiParams.POST_ID, post.getPostId());
-        paramOfComment.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
+        paramOfComment.addParam(QueryParams.OWNER_ID, userPage.getIdOfUser());
+        paramOfComment.addParam(QueryParams.POST_ID, post.getPostId());
+        paramOfComment.addParam(QueryParams.MESSAGE, RAND_STRING);
         stepsUserB.addCommentToPost(paramOfComment);
 
         Log.step(8, "Check comment");

@@ -1,7 +1,7 @@
 package test;
 
 import aquality.selenium.browser.BrowserManager;
-import framework.utils.ImgManager;
+import framework.utils.ImageManager;
 import framework.utils.Log;
 import framework.utils.PropertiesReader;
 import models.PhotoModel;
@@ -20,7 +20,7 @@ import test.dataprovider.DataProviderForVkApiTest;
 import vk.api.JsonApi;
 import vk.api.VkUserActions;
 import vk.enums.EndPoints;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 import java.io.File;
 
 public class TestPostsWithFormatsOfPictures extends BaseTest {
@@ -28,6 +28,7 @@ public class TestPostsWithFormatsOfPictures extends BaseTest {
     private static final String RAND_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
     private static final String BODY_OF_API_URL = PropertiesReader.getValue("VK_PATTERN");
     private static final String MAIN_PAGE = PropertiesReader.getValue("VK_COM");
+    private static final double  EXPECTED_PERCENTAGE_OF_COMPARING_IMAGES = Double.parseDouble(PropertiesReader.getValue("EXPECTED_PERCENTAGE_OF_COMPARING_IMAGES"));
 
     @BeforeMethod
     public void prepareBrowser() {
@@ -53,15 +54,15 @@ public class TestPostsWithFormatsOfPictures extends BaseTest {
         VkUserActions secondUserActions = new VkUserActions(user.getToken());
         PhotoModel photo = secondUserActions.uploadPhoto(userPage.getIdOfUser(), picFile);
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam(NamesOfApiParams.MESSAGE, RAND_STRING.toUpperCase());
+        paramRequestModel.addParam(QueryParams.MESSAGE, RAND_STRING.toUpperCase());
         paramRequestModel.addAttachments(photo.toString());
         Post post = userApiActions.executeGet(EndPoints.WALL_POST, paramRequestModel, Post.class);
 
         Log.step(5, "Check is post created");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(RAND_STRING.toUpperCase(), userPage.getPostsForm().getPost(post.getPostId()).getText(), "post text is not match");
-        softAssert.assertTrue(ImgManager.compareImage(ImgManager.getBufferedImage(picFile),
-                ImgManager.getBufferedImage(userPage.getLinkOnImg(photo.toString()))),
+        softAssert.assertTrue(ImageManager.compareImage(ImageManager.getBufferedImage(picFile),
+                ImageManager.getBufferedImage(userPage.getLinkOnImg(photo.toString())), EXPECTED_PERCENTAGE_OF_COMPARING_IMAGES),
                 "pictures are not match");
         softAssert.assertAll();
     }

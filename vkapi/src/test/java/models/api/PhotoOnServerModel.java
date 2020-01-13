@@ -1,7 +1,7 @@
 package models.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhotoOnServerModel {
@@ -23,9 +23,9 @@ public class PhotoOnServerModel {
 
     public ParamRequestModel getParamsToSave() {
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam(NamesOfApiParams.SERVER, getServer());
-        paramRequestModel.addParam(NamesOfApiParams.PHOTO, getPhoto());
-        paramRequestModel.addParam(NamesOfApiParams.HASH, getHash());
+        paramRequestModel.addParam(QueryParams.SERVER, getServer());
+        paramRequestModel.addParam(QueryParams.PHOTO, getPhoto());
+        paramRequestModel.addParam(QueryParams.HASH, getHash());
         return paramRequestModel;
     }
 }

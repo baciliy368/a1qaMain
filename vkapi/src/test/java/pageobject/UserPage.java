@@ -13,9 +13,9 @@ public class UserPage extends Form {
     }
 
     public String getLinkOnImg(String idOfAttachment) {
-        return new ElementFactory().getButton(By.xpath(String.format("//a[@href='/%s']", idOfAttachment)), "ing Button").getAttribute("style")
-                .replaceAll(".+url\\(\"", "")
-                .replaceAll("\".+", "");
+        return getUrlFromString(new ElementFactory().getButton(By.xpath(String.format("//a[@href='/%s']", idOfAttachment)),
+                "Image Button").getAttribute("style"));
+
     }
 
     public PostsForm getPostsForm() {
@@ -32,5 +32,10 @@ public class UserPage extends Form {
 
     public QuickLoginForm getQuickLoginForm() {
         return quickLoginForm;
+    }
+
+    private String getUrlFromString(String text) {
+        return text .replaceAll(".+url\\(\"", "")
+                .replaceAll("\".+", "");
     }
 }

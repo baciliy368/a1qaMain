@@ -15,7 +15,7 @@ import pageobject.NewsPage;
 import pageobject.UserPage;
 import test.steps.TestStepsVk;
 import vk.api.VkUserActions;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 import java.io.File;
 
 public class TestVisibilityOfUserPostForUnknownUser extends BaseTest {
@@ -47,7 +47,7 @@ public class TestVisibilityOfUserPostForUnknownUser extends BaseTest {
         Log.step(6, "Creating post using vkAPI");
         VkUserActions stepsUserA = new VkUserActions(userModel.getToken());
         ParamRequestModel paramToCreatePostWithText = new ParamRequestModel();
-        paramToCreatePostWithText.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
+        paramToCreatePostWithText.addParam(QueryParams.MESSAGE, RAND_STRING);
         Post post = stepsUserA.createPost(paramToCreatePostWithText);
 
         Log.step(7, "log out");

@@ -1,6 +1,6 @@
 package vk.enums;
 
-public enum NamesOfApiParams {
+public enum QueryParams {
     MESSAGE("message"),
     POST_ID("post_id"),
     OWNER_ID("owner_id"),
@@ -13,7 +13,7 @@ public enum NamesOfApiParams {
     HASH("hash");
     private String action;
 
-    NamesOfApiParams(String action) {
+    QueryParams(String action) {
         this.action = action;
     }
 

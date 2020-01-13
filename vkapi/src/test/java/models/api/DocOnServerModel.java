@@ -1,7 +1,7 @@
 package models.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DocOnServerModel {
@@ -13,7 +13,7 @@ public class DocOnServerModel {
 
     public ParamRequestModel getParamsToSave() {
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam(NamesOfApiParams.FILE, getFile());
+        paramRequestModel.addParam(QueryParams.FILE, getFile());
         return paramRequestModel;
     }
 }

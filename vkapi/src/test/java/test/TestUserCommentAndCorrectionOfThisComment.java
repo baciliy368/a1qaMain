@@ -1,7 +1,7 @@
 package test;
 
 import aquality.selenium.browser.BrowserManager;
-import framework.utils.ImgManager;
+import framework.utils.ImageManager;
 import framework.utils.Log;
 import framework.utils.ModelGenerator;
 import framework.utils.PropertiesReader;
@@ -17,7 +17,7 @@ import pageobject.NewsPage;
 import pageobject.UserPage;
 import test.steps.TestStepsVk;
 import vk.api.VkUserActions;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 import java.io.File;
 
 public class TestUserCommentAndCorrectionOfThisComment extends BaseTest {
@@ -25,6 +25,7 @@ public class TestUserCommentAndCorrectionOfThisComment extends BaseTest {
     private static final String RAND_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
     private static final File CONFIG_USER = new File(PropertiesReader.getValue("USER_A"));
     private static final File PHOTO = new File(PropertiesReader.getValue("PIC_A"));
+    private static final double  EXPECTED_PERCENTAGE_OF_COMPARING_IMAGES = Double.parseDouble(PropertiesReader.getValue("EXPECTED_PERCENTAGE_OF_COMPARING_IMAGES"));
 
     @Test
     public void testPostsActions() {
@@ -45,7 +46,7 @@ public class TestUserCommentAndCorrectionOfThisComment extends BaseTest {
         UserPage userPage = new UserPage();
         VkUserActions stepsUserA = new VkUserActions(userModel.getToken());
         ParamRequestModel paramToCreatePostWithText = new ParamRequestModel();
-        paramToCreatePostWithText.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
+        paramToCreatePostWithText.addParam(QueryParams.MESSAGE, RAND_STRING);
         Post post = stepsUserA.createPost(paramToCreatePostWithText);
 
         Log.step(5,"Check is post created");
@@ -54,21 +55,22 @@ public class TestUserCommentAndCorrectionOfThisComment extends BaseTest {
         Log.step(6, "Edit post, insert picture");
         PhotoModel photo = stepsUserA.uploadPhoto(userPage.getIdOfUser(), PHOTO);
         ParamRequestModel paramRequestModel = new ParamRequestModel();
-        paramRequestModel.addParam(NamesOfApiParams.POST_ID, post.getPostId());
-        paramRequestModel.addParam(NamesOfApiParams.MESSAGE, RAND_STRING.toUpperCase());
+        paramRequestModel.addParam(QueryParams.POST_ID, post.getPostId());
+        paramRequestModel.addParam(QueryParams.MESSAGE, RAND_STRING.toUpperCase());
         paramRequestModel.addAttachments(photo.toString());
         post = userApiActions.editWall(paramRequestModel);
 
         Log.step(7, "Check is post edit with image and text");
         TestStepsVk.checkTextOfPost(RAND_STRING.toUpperCase(), post);
-        Assert.assertTrue(ImgManager.compareImage(ImgManager.getBufferedImage(PHOTO),
-                ImgManager.getBufferedImage(userPage.getLinkOnImg(photo.toString()))), "post img is not match");
+        Assert.assertTrue(ImageManager.compareImage(ImageManager.getBufferedImage(PHOTO),
+                ImageManager.getBufferedImage(userPage.getLinkOnImg(photo.toString())),
+                EXPECTED_PERCENTAGE_OF_COMPARING_IMAGES), "post img is not match");
 
         Log.step(8, "Add comment to post");
         ParamRequestModel paramsToAddComment = new ParamRequestModel();
-        paramsToAddComment.addParam(NamesOfApiParams.OWNER_ID, userPage.getIdOfUser());
-        paramsToAddComment.addParam(NamesOfApiParams.POST_ID, post.getPostId());
-        paramsToAddComment.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
+        paramsToAddComment.addParam(QueryParams.OWNER_ID, userPage.getIdOfUser());
+        paramsToAddComment.addParam(QueryParams.POST_ID, post.getPostId());
+        paramsToAddComment.addParam(QueryParams.MESSAGE, RAND_STRING);
         stepsUserA.addCommentToPost(paramsToAddComment);
 
         Log.step(9, "Check comment");

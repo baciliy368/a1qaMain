@@ -1,7 +1,7 @@
 package models.api;
 
 import org.json.JSONObject;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 
 import java.util.stream.Collectors;
 
@@ -14,7 +14,7 @@ public class ParamRequestModel {
         return params.toString();
     }
 
-    public void addParam(NamesOfApiParams name, String param) {
+    public void addParam(QueryParams name, String param) {
         params.put(name.toString(), param);
     }
 

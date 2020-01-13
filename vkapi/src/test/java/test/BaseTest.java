@@ -19,6 +19,4 @@ public class BaseTest {
     public void afterTest() {
         BrowserManager.getBrowser().quit();
     }
-
-
 }

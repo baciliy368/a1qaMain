@@ -28,9 +28,9 @@ public class ModelGenerator {
         }
     }
 
-    public static <T> T getModelByMapping(String json, Class<T> clazz) {
+    public static <T> T getModelByMapping(String string, Class<T> clazz) {
         try {
-            return new ObjectMapper().readValue(json, clazz);
+            return new ObjectMapper().readValue(string, clazz);
         } catch (Exception e) {
             Log.error(String.format("%s\n%s",exception.getMessage(), Arrays.toString(e.getStackTrace())));
             throw exception;

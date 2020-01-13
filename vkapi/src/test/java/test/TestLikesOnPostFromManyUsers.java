@@ -14,7 +14,7 @@ import pageobject.NewsPage;
 import pageobject.UserPage;
 import test.steps.TestStepsVk;
 import vk.api.VkUserActions;
-import vk.enums.NamesOfApiParams;
+import vk.enums.QueryParams;
 import java.io.File;
 
 public class TestLikesOnPostFromManyUsers extends BaseTest {
@@ -49,7 +49,7 @@ public class TestLikesOnPostFromManyUsers extends BaseTest {
         Log.step(6, "Creating post using vkAPI");
         VkUserActions firstUserActions = new VkUserActions(userModelA.getToken());
         ParamRequestModel paramToCreatePostWithText = new ParamRequestModel();
-        paramToCreatePostWithText.addParam(NamesOfApiParams.MESSAGE, RAND_STRING);
+        paramToCreatePostWithText.addParam(QueryParams.MESSAGE, RAND_STRING);
         Post post = firstUserActions.createPost(paramToCreatePostWithText);
 
         Log.step(7, "Click like on post");

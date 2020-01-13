@@ -11,8 +11,8 @@ public class DataProviderForVkApiTest {
 
     @DataProvider(name = "UserAndPictureDataProvider")
     public static Object[][] dataProviderNumbersPos() {
-        final File file = new File(PropertiesReader.getValue("DATA_FILE_FOR_DATA_PROVIDER_TEST_5"));
-        final UserWithFileModel[] dataList = ModelGenerator.getModelByMappingXml(file, XmlTestRootModel.class).getData();
+        File file = new File(PropertiesReader.getValue("DATA_FILE_FOR_DATA_PROVIDER_TEST_5"));
+        UserWithFileModel[] dataList = ModelGenerator.getModelByMappingXml(file, XmlTestRootModel.class).getData();
         Object[][] result = new Object[dataList.length][2];
         for (int index = 0; index < dataList.length; index++) {
             UserWithFileModel userWithFileModel = dataList[index];
