@@ -1,7 +1,6 @@
 package framework;
 
 import aquality.selenium.browser.BrowserManager;
-import aquality.selenium.logger.Logger;
 import framework.utils.Log;
 import pageobject.IFrame;
 

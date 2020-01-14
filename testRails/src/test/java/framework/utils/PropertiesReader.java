@@ -7,18 +7,26 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 
 public class PropertiesReader {
-    private static final String PATH_TO_PROPERTIES_FILE = "src/test/resources/testData.properties";
+    private String pathToPropertiesFile = "src/test/resources/testData.properties";
 
-    public static String getValue(String key) {
+    public PropertiesReader() {
+    }
+
+    public PropertiesReader(String customFilePath) {
+        pathToPropertiesFile = customFilePath;
+    }
+
+    public String getValue(String key) {
         InputStream input;
+        System.out.println(pathToPropertiesFile);
         Properties prop = new Properties();
         try {
-            input = new FileInputStream(PATH_TO_PROPERTIES_FILE);
+            input = new FileInputStream(pathToPropertiesFile);
             prop.load(input);
             return prop.getProperty(key);
         } catch (Exception e) {
             final NoSuchElementException noSuchElementException
-                    = new NoSuchElementException(String.format("Problems with reading properties file %s", PATH_TO_PROPERTIES_FILE));
+                    = new NoSuchElementException(String.format("Problems with reading properties file %s", pathToPropertiesFile));
             Log.error(noSuchElementException.getMessage(), Arrays.toString(e.getStackTrace()));
             throw noSuchElementException;
         }
