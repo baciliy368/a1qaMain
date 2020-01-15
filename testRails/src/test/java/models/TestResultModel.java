@@ -1,19 +1,14 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TestResultModel {
-    private int result;
+    @JsonProperty("status_id")
+    private int statusId;
     private String comment;
 
-    public int getResult() {
-        return result;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     public void setComment(String comment) {

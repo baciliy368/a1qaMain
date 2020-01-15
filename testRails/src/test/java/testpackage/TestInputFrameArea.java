@@ -13,13 +13,15 @@ import pageobject.TextInputFrame;
 public class TestInputFrameArea extends BaseTest {
     private static final int NUMBER_OF_RANDOM_SYMBOLS_IN_STRING = 10;
     private static final String RANDOM_STRING = RandomStringUtils.randomAlphabetic(NUMBER_OF_RANDOM_SYMBOLS_IN_STRING);
-    public static final String RUN_ID = "34329";
-    public static final String CASE_ID = "15878661";
+
+    private TestInputFrameArea() {
+        caseId = "15878661";
+    }
 
     @Test
     public void testInputTextInFrame() {
         Log.step(1,"Open Main page");
-        BrowserManager.getBrowser().goTo(new PropertiesReader().getValue("START_PAGE_FRAME_TEST"));
+        BrowserManager.getBrowser().goTo(new PropertiesReader().getValue("startPageFrameTest"));
         MainPage mainPage = new MainPage();
         Assert.assertTrue(mainPage.isFormDisplayed(), "Form mainPage is not displayed");
 
@@ -37,15 +39,5 @@ public class TestInputFrameArea extends BaseTest {
         BrowserFramesManager.switchDriverOnFrameByIndex(textInputFrame);
         Assert.assertEquals(RANDOM_STRING, textInputFrame.getTextStrong(),
                 "texts are not match");
-    }
-
-    @Override
-    public String getRunId() {
-        return RUN_ID;
-    }
-
-    @Override
-    public String getCaseId() {
-        return CASE_ID;
     }
 }

@@ -18,7 +18,6 @@ public class PropertiesReader {
 
     public String getValue(String key) {
         InputStream input;
-        System.out.println(pathToPropertiesFile);
         Properties prop = new Properties();
         try {
             input = new FileInputStream(pathToPropertiesFile);
