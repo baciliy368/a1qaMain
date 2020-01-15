@@ -35,7 +35,7 @@ public class UserPage extends Form {
     }
 
     private String getUrlFromString(String text) {
-        return text .replaceAll(".+url\\(\"", "")
+        return text.replaceAll(".+url\\(\"", "")
                 .replaceAll("\".+", "");
     }
 }
