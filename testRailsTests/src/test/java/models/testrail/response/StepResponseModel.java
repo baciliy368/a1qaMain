@@ -1,6 +1,6 @@
-package models.testrail;
+package models.testrail.response;
 
-public class StepModel {
+public class StepResponseModel {
     private String content;
     private String expected;
 

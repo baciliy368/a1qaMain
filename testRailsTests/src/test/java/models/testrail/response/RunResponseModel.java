@@ -1,11 +1,11 @@
-package models.testrail;
+package models.testrail.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.javers.core.metamodel.annotation.DiffIgnore;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RunModel {
+public class RunResponseModel {
     @DiffIgnore
     private String id;
     private String name;

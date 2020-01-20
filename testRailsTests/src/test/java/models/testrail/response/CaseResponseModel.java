@@ -1,13 +1,13 @@
-package models.testrail;
+package models.testrail.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.javers.core.metamodel.annotation.DiffIgnore;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CaseModel {
+public class CaseResponseModel {
     @JsonProperty("custom_steps_separated")
-    private StepModel[] steps;
+    private StepResponseModel[] steps;
     private String title;
     @DiffIgnore
     private String id;
@@ -20,11 +20,11 @@ public class CaseModel {
         this.id = id;
     }
 
-    public StepModel[] getSteps() {
+    public StepResponseModel[] getSteps() {
         return steps;
     }
 
-    public void setSteps(StepModel[] steps) {
+    public void setSteps(StepResponseModel[] steps) {
         this.steps = steps;
     }
 

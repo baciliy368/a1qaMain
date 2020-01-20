@@ -11,4 +11,8 @@ public class Log {
     public static void step(int numberOfStep, String message) {
         Logger.getInstance().info(String.format("STEP %d: %s", numberOfStep, message));
     }
+
+    public static void info(String message) {
+        Logger.getInstance().info(message);
+    }
 }

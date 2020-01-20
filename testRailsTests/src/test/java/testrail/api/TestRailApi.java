@@ -7,12 +7,18 @@ import framework.utils.PropertiesReader;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import models.testrail.CaseModel;
-import models.testrail.RunModel;
-import models.testrail.SectionModel;
-import models.testrail.SuiteModel;
-import models.testrail.TestResultModel;
+import models.testrail.request.CaseRequestModel;
+import models.testrail.request.RunRequestModel;
+import models.testrail.request.SectionRequestModel;
+import models.testrail.request.SuiteRequestModel;
+import models.testrail.request.TestResultRequestModel;
+import models.testrail.response.CaseResponseModel;
+import models.testrail.response.RunResponseModel;
+import models.testrail.response.SectionResponseModel;
+import models.testrail.response.SuiteResponseModel;
+import models.testrail.response.TestResultResponseModel;
 import testrail.enums.TestRailEndpoint;
+
 import java.util.Base64;
 
 public class TestRailApi {
@@ -27,41 +33,41 @@ public class TestRailApi {
         this.password = password;
     }
 
-    public TestResultModel addTestResult(TestResultModel testResultModel, String runId, String caseId) {
+    public void addTestResult(TestResultRequestModel testResultModel, String runId, String caseId) {
         String idOfRunInCase = String.format("%s/%s", runId, caseId);
-        return sendPostRequest(TestRailEndpoint.ADD_RESULT_OF_CASE, idOfRunInCase, testResultModel, TestResultModel.class);
+        sendPostRequest(TestRailEndpoint.ADD_RESULT_OF_CASE, idOfRunInCase, testResultModel, TestResultResponseModel.class);
     }
 
-    public SuiteModel addSuite(SuiteModel suiteRequestModel, String projectId) {
-        return sendPostRequest(TestRailEndpoint.ADD_SUITE, projectId, suiteRequestModel, SuiteModel.class);
+    public SuiteResponseModel addSuite(SuiteRequestModel suiteRequestModel, String projectId) {
+        return sendPostRequest(TestRailEndpoint.ADD_SUITE, projectId, suiteRequestModel, SuiteResponseModel.class);
     }
 
-    public RunModel addRun(RunModel runRequestModel, String projectId) {
-        return sendPostRequest(TestRailEndpoint.ADD_RUN, projectId, runRequestModel, RunModel.class);
+    public RunResponseModel addRun(RunRequestModel runRequestModel, String projectId) {
+        return sendPostRequest(TestRailEndpoint.ADD_RUN, projectId, runRequestModel, RunResponseModel.class);
     }
 
-    public SectionModel addSection(SectionModel sectionModel, String projectId) {
-        return sendPostRequest(TestRailEndpoint.ADD_SECTION, projectId, sectionModel, SectionModel.class);
+    public SectionResponseModel addSection(SectionRequestModel sectionModel, String projectId) {
+        return sendPostRequest(TestRailEndpoint.ADD_SECTION, projectId, sectionModel, SectionResponseModel.class);
     }
 
-    public CaseModel addSteps(CaseModel caseRequestModel, String ownerId) {
-        return sendPostRequest(TestRailEndpoint.ADD_CASE, ownerId, caseRequestModel, CaseModel.class);
+    public CaseResponseModel addSteps(CaseRequestModel caseRequestModel, String ownerId) {
+        return sendPostRequest(TestRailEndpoint.ADD_CASE, ownerId, caseRequestModel, CaseResponseModel.class);
     }
 
-    public RunModel getRun(String runId) {
-        return getModelFromGetRequest(TestRailEndpoint.GET_RUN, runId, RunModel.class);
+    public RunResponseModel getRun(String runId) {
+        return getModelFromGetRequest(TestRailEndpoint.GET_RUN, runId, RunResponseModel.class);
     }
 
-    public SuiteModel getSuite(String suiteId) {
-        return getModelFromGetRequest(TestRailEndpoint.GET_SUITE, suiteId, SuiteModel.class);
+    public SuiteResponseModel getSuite(String suiteId) {
+        return getModelFromGetRequest(TestRailEndpoint.GET_SUITE, suiteId, SuiteResponseModel.class);
     }
 
-    public SectionModel getSection(String sectionId) {
-        return getModelFromGetRequest(TestRailEndpoint.GET_SECTION, sectionId, SectionModel.class);
+    public SectionResponseModel getSection(String sectionId) {
+        return getModelFromGetRequest(TestRailEndpoint.GET_SECTION, sectionId, SectionResponseModel.class);
     }
 
-    public CaseModel getCase(String caseId) {
-        return getModelFromGetRequest(TestRailEndpoint.GET_CASE, caseId, CaseModel.class);
+    public CaseResponseModel getCase(String caseId) {
+        return getModelFromGetRequest(TestRailEndpoint.GET_CASE, caseId, CaseResponseModel.class);
     }
 
     public void deleteRun(String runId) {
@@ -112,8 +118,8 @@ public class TestRailApi {
                 .get(url);
     }
 
-    private Response executeByUrlPostRequest(String url) {
-        return RestAssured.given()
+    private void executeByUrlPostRequest(String url) {
+        RestAssured.given()
                 .header("Authorization", getAuthorize())
                 .header("Content-Type", ContentType.JSON)
                 .post(url);

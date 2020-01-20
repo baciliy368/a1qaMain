@@ -4,63 +4,64 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import framework.exceptions.ExceptionWrapper;
 import framework.utils.Log;
 import framework.utils.RandomStringGenerator;
-import models.testrail.CaseModel;
-import models.testrail.RunModel;
-import models.testrail.SectionModel;
-import models.testrail.StepModel;
-import models.testrail.SuiteModel;
-import models.testrail.TestResultModel;
+import models.testrail.request.CaseRequestModel;
+import models.testrail.request.RunRequestModel;
+import models.testrail.request.SectionRequestModel;
+import models.testrail.request.StepRequestModel;
+import models.testrail.request.SuiteRequestModel;
+import models.testrail.request.TestResultRequestModel;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class TestRailHelper {
     private static final int NUMBER_OF_RANDOM_STRING_IN_NAME = 5;
 
-    public static TestResultModel getTestResult(int result, String comment) {
-        TestResultModel testResult = new TestResultModel();
+    public static TestResultRequestModel getTestResult(int result, String comment) {
+        TestResultRequestModel testResult = new TestResultRequestModel();
         testResult.setStatusId(String.valueOf(result));
         testResult.setComment(comment);
         return testResult;
     }
 
-
-    public static SuiteModel getSuiteRequestModel(String name, String description) {
-        SuiteModel suiteRequestModel = new SuiteModel();
+    public static SuiteRequestModel getSuiteRequestModel(String name, String description) {
+        SuiteRequestModel suiteRequestModel = new SuiteRequestModel();
         suiteRequestModel.setName(name);
         suiteRequestModel.setDescription(description);
         return suiteRequestModel;
     }
 
-    public static SectionModel getSectionModel(String suiteId, String name) {
-        SectionModel sectionModel = new SectionModel();
+    public static SectionRequestModel getSectionModel(String suiteId, String name) {
+        SectionRequestModel sectionModel = new SectionRequestModel();
         sectionModel.setSuiteId(suiteId);
         sectionModel.setName(name);
         return sectionModel;
     }
 
-    public static CaseModel getCaseModel(String title, StepModel[] stepModels) {
-        CaseModel caseModel = new CaseModel();
-        caseModel.setTitle(title);
-        caseModel.setSteps(stepModels);
-        return caseModel;
+    public static CaseRequestModel getCaseModel(String title, List<StepRequestModel> stepModels) {
+        CaseRequestModel caseResponseModel = new CaseRequestModel();
+        caseResponseModel.setTitle(title);
+        caseResponseModel.setSteps(stepModels);
+        return caseResponseModel;
     }
 
     public static int getRandomResult() {
         return new Random().nextInt(1) + 1;
     }
 
-    public static StepModel[] getStepsModelFromJsonFile(String path) {
+    public static List<StepRequestModel> getStepsModelFromJsonFile(String path) {
         try {
-            return new ObjectMapper().readValue(new File(path), StepModel[].class);
+            return Arrays.asList(new ObjectMapper().readValue(new File(path), StepRequestModel[].class));
         } catch (IOException e) {
             Log.error("Problems with creating model", e);
             throw new ExceptionWrapper("Problems with creating model", e);
         }
     }
 
-    public static RunModel getRunRequestModel(String name, String suiteId) {
-        RunModel runRequestModel = new RunModel();
+    public static RunRequestModel getRunRequestModel(String name, String suiteId) {
+        RunRequestModel runRequestModel = new RunRequestModel();
         runRequestModel.setName(name);
         runRequestModel.setSuiteId(suiteId);
         return runRequestModel;
