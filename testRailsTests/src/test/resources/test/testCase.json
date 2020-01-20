@@ -1,0 +1,14 @@
+[
+  {
+    "content" : "Перейти на ресурс: http://the-internet.herokuapp.com/iframe",
+    "expected" : "Отображается страница \"An iFrame containing the TinyMCE WYSIWYG Editor\""
+  },
+  {
+    "content" : "Очистить поле ввода и ввести случайно сгенерированный текст",
+    "expected" : "Текст отображается"
+  },
+  {
+    "content" : "Выделить введенный текст и нажать кнопку 'B'",
+    "expected" : "Введенный текст отображается жирным шрифтом."
+  }
+]
