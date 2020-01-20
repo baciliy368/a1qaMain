@@ -41,7 +41,7 @@ public class TestRailTests {
         SuiteResponseModel suiteResponseModel = testRailApi.addSuite(suiteRequestModel, PROJECT_ID);
 
         Log.step(2, "Check suite");
-        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getSuite(suiteResponseModel.getId()), suiteRequestModel),
+        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getSuite(suiteResponseModel.getId()), suiteResponseModel),
                 "Suite is not created");
 
         Log.step(3, "Create section");
@@ -49,7 +49,7 @@ public class TestRailTests {
         SectionResponseModel sectionResponseModel = testRailApi.addSection(sectionRequestModel, PROJECT_ID);
 
         Log.step(4, "Check section");
-        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getSection(sectionResponseModel.getId()), sectionRequestModel),
+        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getSection(sectionResponseModel.getId()), sectionResponseModel),
                 "Section is not created");
 
         Log.step(5, "Create case");
@@ -58,7 +58,7 @@ public class TestRailTests {
         CaseResponseModel caseResponseModel = testRailApi.addSteps(caseRequestModel, sectionResponseModel.getId());
 
         Log.step(6, "Check is case");
-        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getCase(caseResponseModel.getId()), caseRequestModel),
+        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getCase(caseResponseModel.getId()), caseResponseModel),
                 "CaseModel is not created");
 
         Log.step(7, "Create run");
@@ -66,7 +66,7 @@ public class TestRailTests {
         RunResponseModel runResponseModel = testRailApi.addRun(runRequestModel, PROJECT_ID);
 
         Log.step(8, "Check run");
-        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getRun(runResponseModel.getId()), runRequestModel),
+        Assert.assertTrue(ModelsComparator.areEquals(testRailApi.getRun(runResponseModel.getId()), runResponseModel),
                 "CaseModel is not created");
 
         Log.step(9, "Change result of test");

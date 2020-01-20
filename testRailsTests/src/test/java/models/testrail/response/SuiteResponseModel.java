@@ -6,11 +6,8 @@ import org.javers.core.metamodel.annotation.DiffIgnore;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SuiteResponseModel {
     private String description;
-    @DiffIgnore
     private String id;
     private String name;
-    @DiffIgnore
-    private String url;
 
     public String getDescription() {
         return description;
@@ -34,13 +31,5 @@ public class SuiteResponseModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

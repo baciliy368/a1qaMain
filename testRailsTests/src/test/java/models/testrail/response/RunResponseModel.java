@@ -6,7 +6,6 @@ import org.javers.core.metamodel.annotation.DiffIgnore;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RunResponseModel {
-    @DiffIgnore
     private String id;
     private String name;
     @JsonProperty("suite_id")

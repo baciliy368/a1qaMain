@@ -9,7 +9,6 @@ public class SectionResponseModel {
     private String name;
     @JsonProperty("suite_id")
     private String suiteId;
-    @DiffIgnore
     private String id;
 
     public String getName() {

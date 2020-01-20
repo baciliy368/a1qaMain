@@ -9,7 +9,6 @@ public class CaseResponseModel {
     @JsonProperty("custom_steps_separated")
     private StepResponseModel[] steps;
     private String title;
-    @DiffIgnore
     private String id;
 
     public String getId() {
